@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Supplier Details</title>
+    <link rel = "stylesheet" href = "../css/supplierView.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+</head>
+<body>
+
+<!--    HEADER  -->
+    <header>
+        <div class="container">
+            <div class="logo">Northwind</div>
+        </div>
+    </header>
+
+<!--    NAVBAR  -->
+
+<nav class = "navbar">
+    <ul class = "menu">
+        <li><a href = "suppliers.html">&lAarr; Volver a proveedores</a></li>
+    </ul>
+</nav>
+
+<!-- MAIN CONTENT-->
+
+<main class="detail-container">
+    <h1>Detalle del Proveedor</h1>
+
+    <!-- Sección de información del proveedor -->
+     <section class = "card supplier-detail" id = "supplierDetail">
+        <!--Aquí se renderizan los datos del proveedor -->
+     </section>
+
+     <!-- Sección de estadísticas -->
+      <section class="card stats" id = "supplierStats">
+        <!--Estadísticas como total de órdenes, total pagado, promedio -->
+      </section>
+
+     <!--Sección de órdenes asociadas -->
+     <section class="card" id="purchaseOrders">
+        <!-- Tabla de órdenes generada por JS -->
+     </section>
+</main>
+
+<!-- FOOTER -->
+  <footer>
+    <div class="footer-container">
+      <div class="footer-column">
+        <h4>Northwind</h4>
+        <ul>
+          <li><a href="#">Inicio</a></li>
+          <li><a href="#">Quiénes Somos</a></li>
+          <li><a href="#">Blog</a></li>
+        </ul>
+      </div>
+      <div class="footer-column">
+        <h4>Información</h4>
+        <ul>
+          <li><a href="#">Términos y Condiciones</a></li>
+          <li><a href="#">Política de Privacidad</a></li>
+          <li><a href="#">Ayuda</a></li>
+        </ul>
+      </div>
+      <div class="footer-column">
+        <h4>Contacto</h4>
+        <ul>
+          <li><a href="#">Contáctenos</a></li>
+          <li>info@northwind.com</li>
+          <li>+54 11 5555 1234</li>
+          <li>Buenos Aires, Argentina</li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      © 2025 Northwind · Todos los derechos reservados
+    </div>
+  </footer>
+
+
+
+
+
+
+
+  <!--  SCRIPT PRINCIPAL -->
+  <script type = "module" src = "../js/features/suppliers/SupplierView.js"></script>
+    
+</body>
+</html>

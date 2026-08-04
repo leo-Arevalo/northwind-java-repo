@@ -1,0 +1,73 @@
+
+/* Table */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+    background-color: #ffffff;
+    border-radius: 8px;
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+    -ms-border-radius: 8px;
+    -o-border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    font-size: 0.9rem;
+}
+
+/* Cabecera de la tabla*/
+table thead {
+    background-color: #0077b6;
+    color: white;
+}
+
+table th, table td {
+    padding: 0.75rem;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+table th{
+    font-weight: 600;
+}
+
+/* Alternancia de colores */
+table tbody tr:nth-child(even){
+    background-color: #f9f9f9;
+}
+/* Botones de las acciones */
+table td button{
+    padding: 0.4rem 0.7rem;
+    border: none;
+    border-radius: 6px;
+    -webkit-border-radius: 6px;
+    -moz-border-radius: 6px;
+    -ms-border-radius: 6px;
+    -o-border-radius: 6px;
+    margin-right: 5px;
+    font-weight: bold;
+    cursor: pinter;
+    transition: background-color 0.2s ease;
+    -webkit-transition: background-color 0.2s ease;
+    -moz-transition: background-color 0.2s ease;
+    -ms-transition: background-color 0.2s ease;
+    -o-transition: background-color 0.2s ease;
+}
+
+button.edit-btn{
+    background-color: #48cae4;
+    color:white;
+}
+button.edit-btn:hover {
+    background-color: #00b4d8;
+}
+button.delete-btn{
+    background-color: #f94144;
+    color: white;
+}
+button.delete-btn:hover{
+    background-color: #d00000;
+}
+
+
+

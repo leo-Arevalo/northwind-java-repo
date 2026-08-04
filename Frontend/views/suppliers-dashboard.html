@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Northwind | Supplier Dashboard</title>
+
+    <!-- Estilos-->
+    <link rel="stylesheet" href="../css/dashboard.css">
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+    <!-- HEADER -->
+    <header class="header">
+        <div class="header__logo">Northwind</div>
+        <nav class="header__nav">
+            <a href="suppliers.html">Proveedores</a>
+            <a href="suppliers-dashboard.html" class="active">Dashboard</a>
+        </nav>
+    </header>
+
+    <!-- MAIN -->
+    <main class="dashboard">
+        <!-- KPIs-->
+        <section id="supplierKPIs" class="kpi-grid"></section>
+
+        <!-- Charts -->
+        <section class="charts-grid">
+            <div class="chart-grid">
+                <h3>Total pagado por proveedor</h3>
+                <canvas id="chartBySupplier"></canvas>
+            </div>
+            <div class="chart-card">
+                <h3>Total pagado por país</h3>
+                <canvas id="chartByCountry"></canvas>
+            </div>
+            <div class="chart-card wide">
+                <h3>Evolución mensual de pagos</h3>
+                <canvas id="chartMonthly"></canvas>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER-->
+     <footer class="footer">
+        <p>© 2025 Northwind · Todos los derechos reservados</p>
+     </footer>
+
+     <!-- JS -->
+    <script type="module" src="../js/views/suppliers-dashboard.js"></script>
+
+
+</body>
+
+</html>

@@ -1,0 +1,70 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customers</title>
+    <link rel="stylesheet" href="../css/customers.css"/>
+</head>
+<body>
+    <h2>Customers List</h2>
+    <button id = "newCustomerBtn"> New Customer</button>
+    <button id = "logoutBtn">Logout</button>
+
+    <table id = "customersTable" border = "1">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Empresa</th>
+                <th>Apellido</th>
+                <th>Nombre</th>
+                <th>Email</th>
+                <th>Puesto</th>
+                <th>Tel. Trabajo</th>
+                <th>Tel. Casa</th>
+                <th>Tel. Movil</th>
+                <th>Fax</th>
+                <th>Dirección</th>
+                <th>Ciudad</th>
+                <th>Provincia</th>
+                <th>Codigo Postal</th>
+                <th>Pais</th>
+                <th>Web</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+
+ <!-- Formulario para agregar / editar cliente -->
+
+ <div id = "customerForm" style = "display:none">
+    <h3 id = "formTitle">Nuevo Cliente</h3>
+    <form id = "form">
+        <input type = "hidden" id = "id">
+        <input type = "text" id = "company" placeholder="Empresa" required><br>
+        <input type = "text" id = "lastName" placeholder="Apellido" required><br>
+        <input type ="text" id = "firstName" placeholder = "Nombre" required><br>
+        <input type = "email" id = "email" placeholder="Email" required><br>
+        <input type = "text" id = "jobTitle" placeholder="Puesto"><br>
+        <input type = "text" id = "businessPhone" placeholder = "Tel. Trabajo"><br>
+        <input type = "text" id = "homePhone" placeholder = "Tel. Casa"><br>
+        <input type = "text" id = "mobilePhone" placeholder = "Tel. Movil"><br>
+        <input type = "text" id = "faxNumber" placeholder = "Fax"><br>
+        <input type = "text" id = "address" placeholder = "Dirección"><br>
+        <input type = "text" id = "city" placeholder = "Ciudad"><br>
+        <input type = "text" id = "stateProvince" placeholder = "Provincia"><br>
+        <input type = "text" id = "postalCode" placeholder = "Codigo Postal"><br>
+        <input type = "text" id = "countryRegion" placeholder = "Pais"><br>
+        <input type = "url" id = "webPage" placeholder = "web"><br>
+        <button type = "submit">Guardar</button>
+        <button type = "button" onclick = "document.getElementById('customerForm').style.display = 'none'">Cancel</button>
+    </form>
+ </div>
+
+
+<script type = "module" src = "../js/customer.js"></script>
+
+</body>
+</html>

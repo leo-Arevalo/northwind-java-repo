@@ -1,0 +1,92 @@
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    font-family: "segoe UI", 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #0077b6, #0096c7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* CAJA PRINCIPAL */
+
+.login-container{
+    width: 100%;
+    max-width: 400px;
+    padding: 2rem;
+    background: white;
+    border-radius: 12px;
+    -webkit-border-radius: 12px;
+    -moz-border-radius: 12px;
+    -ms-border-radius: 12px;
+    -o-border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+    text-align: center;
+}
+
+/*Imagen del usuario*/
+.user-icon{
+    width: 80px;
+    height: 80px;
+    margin-bottom: 1rem;
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -o-border-radius: 50%;
+    object-fit: cover;
+}
+
+
+/* Titulo */
+login-container h2 {
+    margin-bottom: 1.5rem;
+    font-size: 1.8rem;
+    color: #023e8a;
+}
+
+/* Inputs*/
+.login-container input[type = "text"],
+.login-container input[type = "password"]{
+    width: 100%;
+    padding: 0.75rem;
+    margin-bottom: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+    -ms-border-radius: 8px;
+    -o-border-radius: 8px;
+    font-size: 1rem;
+    box-sizing: border-box;
+}
+
+/* Boton*/
+.login-container button {
+    width: 100%;
+    padding: 0.75rem;
+    background-color: #0077b6;
+    color: white;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+    -ms-border-radius: 8px;
+    -o-border-radius: 8px;
+    font-size: pointer;
+    transition: background-color 0.3s ease;
+    -webkit-transition: background-color 0.3s ease;
+    -moz-transition: background-color 0.3s ease;
+    -ms-transition: background-color 0.3s ease;
+    -o-transition: background-color 0.3s ease;
+}
+
+.login-container button:hover {
+    background-color: #023e8a;
+}
+
+
+
+

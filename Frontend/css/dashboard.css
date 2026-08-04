@@ -1,0 +1,86 @@
+
+/* ===== Layout global ===== */
+body {
+  margin: 0;
+  font-family: "Segoe UI", Roboto, sans-serif;
+  background: #f4f6f8;
+  color: #333;
+  line-height: 1.6;
+}
+
+h1, h3 {
+  margin: 0 0 1rem;
+  font-weight: 600;
+}
+
+/* ===== Header ===== */
+.header {
+  background: #1a73e8;
+  color: #fff;
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header__logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.header__nav a {
+  color: #fff;
+  margin-left: 1.5rem;
+  text-decoration: none;
+  font-weight: 500;
+  transition: opacity 0.2s ease;
+}
+.header__nav a:hover { opacity: 0.8; }
+.header__nav a.active { text-decoration: underline; }
+
+/* ===== KPIs ===== */
+.kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.5rem;
+  margin: 2rem;
+}
+
+.kpi-card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+  text-align: center;
+  transition: transform 0.2s ease;
+}
+.kpi-card:hover { transform: translateY(-4px); }
+.kpi-card h3 { font-size: 2rem; margin: 0.5rem 0; color: #1a73e8; }
+
+/* ===== Charts ===== */
+.charts-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(420px, 1fr));
+  gap: 2rem;
+  margin: 2rem;
+}
+
+.chart-card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+}
+.chart-card.wide {
+  grid-column: span 2;
+}
+
+/* ===== Footer ===== */
+.footer {
+  text-align: center;
+  padding: 1rem;
+  background: #fff;
+  border-top: 1px solid #ddd;
+  font-size: 0.9rem;
+  color: #555;
+}

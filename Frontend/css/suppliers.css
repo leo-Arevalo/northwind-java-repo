@@ -1,0 +1,559 @@
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body{
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f2f2f2;
+    padding: 1rem;
+}
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  line-height: 1.6;
+  background-color: #f9f9f9;
+  color: #333;
+}
+
+/* HEADER */
+header {
+  background-color: #004080;
+  padding: 1rem 0;
+  color: white;
+  text-align: center;
+}
+
+header .logo {
+  font-size: 1.8rem;
+  font-weight: bold;
+}
+
+/* NAVBAR */
+.navbar {
+  background-color: #0066cc;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.8rem 2rem;
+  flex-wrap: wrap;
+}
+
+.menu {
+  list-style: none;
+  display: flex;
+  gap: 1.5rem;
+}
+
+.menu li a {
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+  padding: 0.5rem;
+  transition: background 0.3s;
+}
+
+.menu li a:hover {
+  background-color: #005bb5;
+  border-radius: 4px;
+}
+
+.dropdown {
+  position: relative;
+}
+
+.submenu {
+  display: none;
+  position: absolute;
+  top: 2.5rem;
+  left: 0;
+  background-color: #004d99;
+  list-style: none;
+  padding: 0.5rem 0;
+  border-radius: 4px;
+  min-width: 160px;
+  z-index: 10;
+}
+
+.submenu li a {
+  display: block;
+  padding: 0.5rem 1rem;
+  color: white;
+  font-weight: normal;
+}
+
+.submenu li a:hover {
+  background-color: #003d80;
+}
+
+.dropdown:hover .submenu {
+  display: block;
+}
+
+.auth-buttons {
+  display: flex;
+  gap: 0.8rem;
+}
+
+.btn {
+  padding: 0.5rem 1rem;
+  background-color: #ffffff;
+  border: none;
+  color: #0066cc;
+  font-weight: bold;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.btn.secondary {
+  background-color: transparent;
+  color: #fff;
+  border: 1px solid white;
+}
+
+.btn:hover {
+  background-color: #e0e0e0;
+}
+
+.btn.secondary:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* MAIN CONTENT */
+main {
+  padding: 2rem;
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+/* SUPPLIER GRID */
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+  padding: 1rem;
+}
+
+/* FOOTER */
+footer {
+  background-color: #003366;
+  color: white;
+  padding-top: 2rem;
+  margin-top: 3rem;
+}
+
+.footer-container {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  padding: 2rem;
+}
+
+.footer-column {
+  flex: 1 1 200px;
+  margin-bottom: 1.5rem;
+}
+
+.footer-column h4 {
+  margin-bottom: 1rem;
+  border-bottom: 2px solid #fff;
+  display: inline-block;
+  padding-bottom: 0.3rem;
+}
+
+.footer-column ul {
+  list-style: none;
+}
+
+.footer-column ul li {
+  margin-bottom: 0.5rem;
+}
+
+.footer-column ul li a {
+  color: #ccc;
+  text-decoration: none;
+}
+
+.footer-column ul li a:hover {
+  color: #fff;
+}
+
+.footer-social {
+  text-align: center;
+  padding-bottom: 1rem;
+}
+
+.footer-social a {
+  margin: 0 10px;
+  color: #ccc;
+  font-size: 1.2rem;
+  transition: color 0.3s ease;
+}
+
+.footer-social a:hover {
+  color: white;
+}
+
+.footer-bottom {
+  text-align: center;
+  background-color: #002244;
+  padding: 1rem;
+  font-size: 0.9rem;
+  color: #ccc;
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  .navbar {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .auth-buttons {
+    margin-top: 1rem;
+  }
+
+  .menu {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .grid-container {
+    grid-template-columns: 1fr;
+  }
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 2rem;
+    color: #333;
+}
+
+/* Grid principal de las cards */
+.grid-container {
+
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); /*Responsive: minimo 250px, máximo 1fr*/
+    gap: 1.5rem;
+    padding: 0 2rem;
+
+}
+
+/*Card de proveedor*/
+.supplier-card {
+    background-color: #ffffff;
+    border-radius: 12px;
+    -webkit-border-radius: 12px;
+    -moz-border-radius: 12px;
+    -ms-border-radius: 12px;
+    -o-border-radius: 12px;
+    box-shadow: 0 6px 15px rgba(0,0,0,0.08);
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    -webkit-transition: transform 0.2s ease, box-shadow 0.2s ease;
+    -moz-transition: transform 0.2s ease, box-shadow 0.2s ease;
+    -ms-transition: transform 0.2s ease, box-shadow 0.2s ease;
+    -o-transition: transform 0.2s ease, box-shadow 0.2s ease;
+    cursor: pointer;
+}
+
+.supplier-card:hover{
+    transform: translateY(-5px);
+    -webkit-transform: translateY(-5px);
+    -moz-transform: translateY(-5px);
+    -ms-transform: translateY(-5px);
+    -o-transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 123, 255, 0.2);
+}
+.card-header {
+    padding: 1rem;
+    box-shadow: inset 0 -1px 0 rgba(0,0,0,0.1);
+    
+    /* 
+    background-color:#3498db;
+    color: #fff;
+    padding: 1rem;
+    border-top-left-radius: 16px;
+    border-top-right-radius: 16px;
+    */
+}
+.card-header h3 {
+    margin:0;
+    font-size: 1.2rem;
+    color: #2c3e50;
+}
+.card-header span {
+    font-size: 0.9rem;
+    color:#777; /*agregado*/
+    /*opacity: 0.9;*/
+}
+.card-body {
+    margin: 1rem 0;
+/*    padding: 1rem; */
+/*    color: #333; */
+    font-size: 0.95rem;
+}
+.card-body div {
+    margin: 0.3rem 0;
+}
+.card-footer {
+/*    margin-top: auto;
+    padding: 1rem;
+    border-top: 1px solid #eee;*/
+    display:flex;
+    justify-content: space-between;
+    gap: 0.5rem;
+}
+.card-footer button {
+    flex: 1;
+    background-color: #3498db;
+    border: none;
+    color: white;
+    padding: 0.5rem;
+    border-radius: 6px;
+    -webkit-border-radius: 6px;
+    -moz-border-radius: 6px;
+    -ms-border-radius: 6px;
+    -o-border-radius: 6px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+    -webkit-transition: background-color 0.2s ease-in-out;
+    -moz-transition: background-color 0.2s ease-in-out;
+    -ms-transition: background-color 0.2s ease-in-out;
+    -o-transition: background-color 0.2s ease-in-out;
+}
+.card-footer button:hover {
+background-color: #0056b3;
+}
+
+
+/* MODAL */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 50;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.6);
+}
+
+.modal-content {
+  background-color: white;
+  margin: 10% auto;
+  padding: 2rem;
+  border-radius: 8px;
+  width: 90%;
+  max-width: 500px;
+  position: relative;
+}
+
+.close {
+  color: #aaa;
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+.close:hover {
+  color: black;
+}
+
+/*  CAROUSEL */
+
+/* Contenedor del carrusel */
+.carousel-container {
+  position: relative;
+  overflow: hidden;
+  max-width: 1200px;
+  margin: 2rem auto;
+  padding: 0 3rem;
+}
+
+/* Track del carrusel */
+.carousel-track {
+  display: flex;
+  gap: 1.5rem;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  scroll-snap-type: x mandatory;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.carousel-track::-webkit-scrollbar {
+  display: none;
+}
+
+
+
+
+
+.carousel-card:hover {
+  transform: translateY(-5px);
+}
+
+.carousel-card h3 {
+  margin: 0 0 0.25rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #f0f8ff;
+}
+
+.carousel-card p {
+  margin: 0.15rem 0;
+  font-size: 0.9rem;
+  color: #d0e7ff;
+}
+
+.carousel-card button {
+  margin-top: auto;
+  padding: 0.4rem 0.8rem;
+  border: none;
+  border-radius: 6px;
+  background-color: #f0f8ff;
+  color: #003366;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.carousel-card button:hover {
+  background-color: #ffffff;
+  color: #001f3f;
+}
+
+
+
+/* Botones de navegación */
+.carousel-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 100;
+  background-color: rgba(0, 0, 0, 0.6);
+  border: none;
+  color: white;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  font-size: 1.2rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.carousel-btn.left {
+  left: 10px;
+}
+.carousel-btn.right {
+  right: 10px;
+}
+.carousel-btn:hover {
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+.recent-suppliers {
+  margin-top: 2rem;
+  margin-bottom: 2.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid #ccc;
+}
+
+.recent-suppliers h2 {
+  text-align: center;
+  font-size: 1.8rem;
+  color: #003366;
+  margin-bottom: 1rem;
+  display: inline-block;
+  padding-bottom: 0.4rem;
+}
+
+.carousel-indicators {
+  text-align: center;
+  font-size: 1rem;
+  color: #444;
+  margin-top: 0.8rem;
+  font-style:italic;
+}
+
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+
+
+/* Estilo para carrusel con tema oscuro */
+
+.carousel-card {
+  background-color: #003366; /* Azul oscuro */
+  color: #f0f8ff;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  padding: 1rem;
+  min-width: 220px;
+  max-width: 240px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  scroll-snap-align: start;
+  transition: transform 0.3s ease;
+  animation: fadeInUp 0.4s ease-in;
+}
+
+.add-card {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #0066cc;
+  border: 2px dashed #0066cc;
+  background-color: #f9fcff;
+  cursor: pointer;
+  transition: bacground-color 0.3s ease, transform 0.2s ease;
+  -webkit-transition: bacground-color 0.3s ease, transform 0.2s ease;
+  -moz-transition: bacground-color 0.3s ease, transform 0.2s ease;
+  -ms-transition: bacground-color 0.3s ease, transform 0.2s ease;
+  -o-transition: bacground-color 0.3s ease, transform 0.2s ease;
+  text-align: center;
+}
+
+.add-card:hover {
+  background-color: #e6f3ff;
+  transform: translateY(-3px);
+  -webkit-transform: translateY(-3px);
+  -moz-transform: translateY(-3px);
+  -ms-transform: translateY(-3px);
+  -o-transform: translateY(-3px);
+}
+.add-card-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.6rem;
+  font-weight: bold;
+}
+
+.add-card-content i {
+  color: #0066cc;
+}
+
+
+
