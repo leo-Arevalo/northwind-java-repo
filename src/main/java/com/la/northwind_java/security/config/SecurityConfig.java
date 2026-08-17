@@ -23,10 +23,11 @@ import org.springframework.web.cors.CorsConfigurationSource;
 import com.la.northwind_java.security.services.UserDetailsServiceImpl;
 import com.la.northwind_java.security.jwt.JwtAuthenticationFilter;
 import java.util.List;
-import org.springframework.security.core.userdetails.UserDetailsService;
+
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
-import com.la.northwind_java.security.jwt.JwtAuthenticationFilter;
+
+
 
 @Configuration
 @EnableWebSecurity
@@ -50,6 +51,7 @@ public class SecurityConfig {
 				.requestMatchers("swagger-ui/**", "v3/api-docs/**").permitAll() //swagger accesible sin token http://localhost:8080/swagger-ui.html
 				.requestMatchers("/orders/**").hasAuthority("ROLE_ADMIN")
 				.requestMatchers("/customers/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_EMPLOYEE")
+				.requestMatchers("/products/**").hasAnyAuthority("ROLE_ADMIN","ROLE_EMPLOYEE")
 				.requestMatchers("/suppliers/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_EMPLOYEE")
 				.anyRequest().authenticated()
 				)
