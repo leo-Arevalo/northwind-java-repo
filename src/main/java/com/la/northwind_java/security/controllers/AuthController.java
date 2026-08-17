@@ -48,7 +48,7 @@ public class AuthController {
 		return Map.of("accessToken", token, "refreshToken", refreshToken.getToken());
 		
 	}
-	
+	@PostMapping("/refresh")
 	public Map<String, String> refresh(@RequestBody Map<String, String> request){
 		String refreshToken = request.get("refreshToken");
 		
