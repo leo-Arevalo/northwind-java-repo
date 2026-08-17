@@ -1,5 +1,5 @@
 
-import { authService } from "./services/authService";
+import { authService } from "./services/authService.js";
 import { apiClient } from "./services/apiClient";
 
 //esperamos que cargue la pagina por completo
@@ -11,16 +11,18 @@ async function initPage(){
     //proteger acceso
     const token = authService.getAccessToken();
     if(!token) {
-        window.location.href = "login.html";
+        window.location.href = "views/login.html";
         return;
     }
     //configurar eventos
     document.getElementById("logoutBtn").addEventListener("click", async () => {
         await authService.logoutFromServer();
-        window.location.href = "login.html";
+        window.location.href = "views/login.html";
     });
 
-    document.querySelector("#getCustomersBtn").addEventListener("click",loadCustomers);
+    document.querySelector("#getCustomersBtn").addEventListener("click",async () => {
+        window.location.href = "views/customers.html";
+    });
    
     //cargar estadisticas iniciales
     loadStats();
@@ -37,23 +39,29 @@ async function loadCustomers(){
 
 async function loadStats() {
     try{
+        //No hay endpoints /count en el backend todavia, asi que usamos
+        //la paginación (page = 0 & size = 1) y leemos "totalElements"
         const [customerRes, ordersRes, productsRes] = await Promise.all([
-            apiClient("https://localhost:8443/customers/count"),
-            apiClient("https://localhost:8443/orders/count"),
-            apiClient("https://localhost:8443/products/count"),
+            apiClient(`${API_BASE}/customers?page=0&size=1`),
+            apiClient(`${API_BASE}/orders?page=0&size=1`),
+            apiClient(`${API_BASE}/products?page=0&size=1`),
         ]);
-    const customerCount = await customerRes.json();
-    const orderCount = await ordersRes.json();
+    const customerPage = await customerRes.json();
+    const ordersPage = await ordersRes.json();
     const productCount = await productsRes.json();
 
-    document.getElementById("customerCount").textContent = `Clientes: ${customerCount}`;
-    document.getElementById("orderCount").textContent = `Pedidos: ${orderCount}`;
-    document.getElementById("productCount").textContent = `Productos: ${productCount}`;
+    document.getElementById("customerCount").textContent = `Clientes: ${customerPage.totalElements}`;
+    document.getElementById("orderCount").textContent = `Pedidos: ${ordersPage.totalElements}`;
+    document.getElementById("productCount").textContent = `Productos: ${productsPage.totalElements}`;
 
 
 
     }catch(err){
-        alert("Error cargando estadisticas: " + err.message);
+        console.warn("Error cargando estadisticas:", err);
+        document.getElementById("customerCount").textContent = "Clientes: --";
+        document.getElementById("orderCount").textContent = "Pedidos: --";
+        document.getElementById("productCount").textContent = "Productos: --";
+
     }
     
 }

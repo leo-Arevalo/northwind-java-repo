@@ -49,6 +49,13 @@ body {
     color: #0077b6;
     font-weight: bold;
 }
+.actions a.disabled {
+    color: #aaa;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+
 #logoutBtn{
     margin-top: 1.5rem;
     padding: 0.5rem 1rem;
