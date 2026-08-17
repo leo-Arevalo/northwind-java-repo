@@ -8,7 +8,7 @@ document.getElementById('loginForm').addEventListener('submit', async(e) => {
     const password = document.getElementById('password').value;
     try{
         await authService.login(username, password);
-        window.location.href = 'customers.html';
+        window.location.href = '../index.html';
     }catch(err){
         alert('Error de login: '+err.message);
     }
