@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Facturación</title>
+    <link rel="stylesheet" href="../css/customers.css"/>
+
+    <style>
+        .billing-layout {display: flex; gap: 2rem; align-items: flex-start; }
+        .billing-col {flex: 1; }
+        #customerForm.modal {display: none; position: fixed; insert: 0; background: rgb(0, 0, 0, 0.4);
+            align-items: center; justify-content: center;}
+        #customerForm.modal .modal-content {background: white; padding: 1.5rem; border-radius: 8px; max-width: 420px; width: 90%;}
+        .stock-warning {color: #d00000; font-weight: bold;}
+        #totals td {font-weight: bold;}
+    </style>
+</head>
+<body>
+    <h2>Nueva Factura</h2>
+    <button id="logoutBtn">Logout</button>
+    
+    <div class="billing-layout">
+        <div class = "billing-col">
+            <h3>Cliente</h3>
+            <select id="customerSelect">
+                <option value="">-- Seleccionar cliente --</option>
+            </select>
+            <button id="newCustomerBtn" type="button">+ Cliente nuevo</button>
+
+            <h3>Agregar producto</h3>
+            <select id="productSelect">
+                <option value="">-- Seleccionar producto --</option>
+            </select>
+            <input type="number" id="quantityInput" min="1" value="1" style="width: 70px;">
+            <button id="addLineBtn" type="button">Agregar</button>
+            <p id="stockInfo"></p>
+        </div>
+
+        <div class="billing-col">
+            <h3>Envio / Impuestos</h3>
+            <input type="text" id="shipName" placeholder="Nombre para envio"><br>
+            <input type="text" id="shipAddress" placeholder="Dirección de envío"><br>
+            <input type="number" step="0.01" id="shippingFee" placeholder="costo de envio" value="0"><br>
+            <input type="number" step="0.01" id="taxRate" placeholder="% Impuestos" value="0"><br>
+            <select id="paymentType">
+                <option value="Efectivo">Efectivo</option>
+                <option value="Tarjeta">Tarjeta</option>
+                <option value="Transferencia">Transferencia</option>
+            </select>
+        </div>
+    </div>
+    <h3>Detalle</h3>
+    <table id="linesTable" border="1">
+        <thead>
+            <tr>
+                <th>Producto</th>
+                <th>Cantidad</th>
+                <th>Precio unit.</th>
+                <th>Subtotal</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+        <tfoot id="totals">
+            <tr><td colspan="3">Subtotal</td><td id="SubtotalCell">0.00</td><td></td></tr>
+            <tr><td colspan="3">Impuestos</td><td id="taxesCell">0.00</td><td></td></tr>
+            <tr><td colspan="3">Envío</td><td id="shippingCell">0.00</td><td></td></tr>
+            <tr><td colspan="3">TOTAL</td><td id="totalCell">0.00</td><td></td></tr>
+        </tfoot>
+    </table>
+
+<button id="submitOrdenBtn" type="button">Confirmar Factura</button>
+<p id="orderResult"></p>
+<!-- Modal de cliente nuevo: mismo componente que usa customer.html -->
+<div id="customerForm" class="modal">
+    <div class="modal-content">
+        <h3 id="formTitle">Nuevo Cliente</h3>
+        <form id="form">
+            <input type="hidden" id="id">
+            <input type="text" id="company" placeholder="Empresa" required><br>
+            <input type="text" id="lastName" placeholder="Apellido" required><br>
+            <input type="text" id="firstName" placeholder="Nombre" required><br>
+            <input type="email" id="email" placeholder="Email" required><br>
+            <input type="text" id="jobTitle" placeholder="Puesto"><br>
+            <input type="text" id="businessPhone" placeholder="Tel. Trabajo"><br>
+            <input type="text" id="homePhone" placeholder="Tel. Casa"><br>
+            <input type="text" id="mobilePhone" placeholder="Tel. Movil"><br>
+            <input type="text" id="faxNumber" placeholder="Fax"><br>
+            <input type="text" id="address" placeholder="Dirección"><br>
+            <input type="text" id="city" placeholder="Ciudad"><br>
+            <input type="text" id="stateProvince" placeholder="Provincia"><br>
+            <input type="text" id="postalCode" placeholder="Codigo Postal"><br>
+            <input type="text" id="countryRegion" placeholder="Pais"><br>
+            <input type="url" id="webPage" placeholder="web"><br>
+            <button type="submit">Guardar</button>
+            <button type="button" data-action="cancel">Cancel</button>
+        </form>
+    </div>
+</div>
+
+<script type="module" src="../js/billing.js"></script>
+</body>
+</html>
