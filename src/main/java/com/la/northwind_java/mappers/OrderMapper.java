@@ -111,9 +111,10 @@ public interface OrderMapper {
 	default OrderDetailsDTO toOrderDetailsDTO(OrderDetails orderDetails) {
 		if(orderDetails == null) return null;
 		return new OrderDetailsDTO(
-				 orderDetails.getId(),
 				 orderDetails.getOrder().getId(),
 				 orderDetails.getProduct().getProductID(),
+				 orderDetails.getProduct().getProductName(),
+				 orderDetails.getQuantity() != null ? orderDetails.getQuantity().intValue() : null,
 				 orderDetails.getUnitPrice(),
 				 orderDetails.getDiscount()
 				);

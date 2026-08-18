@@ -25,6 +25,7 @@ import lombok.Setter;
 public class OrderDetailsDTO {
 	private Integer orderId;
 	private Integer productId;
+	private String productName;
 	private Integer quantity;
 	private BigDecimal unitPrice;
 	private Double discount;
