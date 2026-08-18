@@ -30,6 +30,7 @@ import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Min;
 
+import com.la.northwind_java.dtos.OrderCreateDTO;
 import com.la.northwind_java.dtos.OrderDTO;
 import com.la.northwind_java.dtos.OrderUpdateDTO;
 import com.la.northwind_java.dtos.customer.CustomerDTO;
@@ -74,10 +75,7 @@ public class OrderController {
 			@RequestParam(defaultValue = "orderDate") String sortBy,
 			@RequestParam(defaultValue = "asc") String sortDirection 
 			){
-	/*	
-		logger.info("Fetching orders with filters - page: {}, size: {}, customerId: {}, employeeId: {}, status: {}",
-				page, size, customerId, employeeId, status);
-	*/	
+
 		Page<OrderDTO> orders = orderService.getAllOrders(page, size, customerId, employeeId, status, sortBy, sortDirection);				
 		return ResponseEntity.ok(orders);
 	}
@@ -88,16 +86,6 @@ public class OrderController {
 	 * #id == authentication.principal.id Permite a un cliente consultar sus propios pedido y no los de otros clientes.
 	 */
 
-//	@GetMapping("/customer/{id}/orders")
-//	@PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_EMPLOYEE') OR #id = authentication.principal.id")
-//	public ResponseEntity<List<CustomerDTO>> getCustomerOrders(@PathVariable Long id){
-//		return ResponseEntity.ok(orderService.getOrdersByCustomer(id));	
-//	}
-	
-	
-	
-	
-	
 	
 	/**
 	 * Retrieves details of a specific order by ID.
@@ -132,9 +120,8 @@ public class OrderController {
 	@ApiResponse(responseCode = "201", description = "Order created successfully")
 	@Transactional
 	
-	public ResponseEntity<OrderDTO> createOrder(@Valid @RequestBody OrderDTO orderDTO){
-		//logger.info("Creating new Order");
-		OrderDTO createdOrder = orderService.createOrder(orderDTO);
+	public ResponseEntity<OrderDTO> createOrder(@Valid @RequestBody OrderCreateDTO orderCreateDTO){
+		OrderDTO createdOrder = orderService.createOrder(orderCreateDTO);
 		return ResponseEntity.status(HttpStatus.CREATED).body(createdOrder);
 	}
 	
