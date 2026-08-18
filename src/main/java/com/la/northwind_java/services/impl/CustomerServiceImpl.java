@@ -33,12 +33,6 @@ public class CustomerServiceImpl implements CustomerService{
 	
 	private final CustomerMapper customerMapper;
 	
-//	@Autowired
-//	public CustomerServiceImpl(CustomerRepository customerRepository, CustomerMapper customerMapper) {
-//		this.customerRepository = customerRepository;
-//		this.customerMapper = customerMapper;
-//	}
-	
 	/*
 	 * Creates a new customer.
 	 */
@@ -58,7 +52,7 @@ public class CustomerServiceImpl implements CustomerService{
 	 * Retrieves a customer by ID.
 	 */
 	@Override
-	public CustomerDTO getCustomerById(Long id) {
+	public CustomerDTO getCustomerById(Integer id) {
 		return customerRepository.findById(id)
 				.map(customerMapper::toCustomerDTO)
 				.orElseThrow(()-> new ResourceNotFoundException("Customer not found with id"+id));
@@ -92,7 +86,7 @@ public class CustomerServiceImpl implements CustomerService{
 	 */
 	@Override
 	@Transactional
-	public CustomerDTO updateCustomer(Long id, CustomerUpdateDTO customerUpdateDTO) {
+	public CustomerDTO updateCustomer(Integer id, CustomerUpdateDTO customerUpdateDTO) {
 		Customer customer = customerRepository.findById(id)
 					.orElseThrow(()-> new ResourceNotFoundException("Customer not found with id" + id));
 		try {
@@ -110,7 +104,7 @@ public class CustomerServiceImpl implements CustomerService{
 	 */
 	@Override
 	@Transactional
-	public void deleteCustomer(Long id) {
+	public void deleteCustomer(Integer id) {
 		if(!customerRepository.existsById(id)) {
 			throw new ResourceNotFoundException("Customer not found with id: " + id);
 		}

@@ -13,8 +13,8 @@ import com.la.northwind_java.dtos.customer.CustomerUpdateDTO;
 
 public interface CustomerService {
 	CustomerDTO createCustomer(CustomerCreateDTO customerCreateDTO);
-	CustomerDTO getCustomerById(Long id);
+	CustomerDTO getCustomerById(Integer id);
 	Page<CustomerDTO> getAllCustomers(Pageable pageable);
-	CustomerDTO updateCustomer(Long id, CustomerUpdateDTO customerUpdateDTO);
-	void deleteCustomer(Long id);
+	CustomerDTO updateCustomer(Integer id, CustomerUpdateDTO customerUpdateDTO);
+	void deleteCustomer(Integer id);
 }

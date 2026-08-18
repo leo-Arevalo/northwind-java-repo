@@ -21,7 +21,7 @@ import lombok.Setter;
 public class CustomerUpdateDTO {
 	
 	@NotNull(message = "Customer ID is required")
-	private Long id;
+	private Integer id;
 
 	@NotBlank(message = "Customer name is required")
 	@Size(max = 100, message = "Customer name must not exceed 100 characters")

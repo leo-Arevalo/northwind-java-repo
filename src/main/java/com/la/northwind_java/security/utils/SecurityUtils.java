@@ -15,7 +15,7 @@ import com.la.northwind_java.security.services.UserDetailsServiceImpl;
 public class SecurityUtils {
 	
 	
-	public static void validateAccessToCustomer(Long requestedCustomerId,
+	public static void validateAccessToCustomer(Integer requestedCustomerId,
 											Authentication authentication) {
 		User user = getUser(authentication);
 

@@ -29,7 +29,7 @@ public class CustomerDTO {
 
 	@Id
 	@NotNull(message = "Customer ID is required")
-	private Long id;
+	private Integer id;
 	
 	@NotBlank(message = "Company name is required")
 	@Size(max = 50, message = "Company name must not exceed 40 characters")

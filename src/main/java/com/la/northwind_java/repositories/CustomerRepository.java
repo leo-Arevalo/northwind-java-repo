@@ -10,7 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.la.northwind_java.models.Customer;
 
 
-public interface CustomerRepository extends JpaRepository<Customer, Long>{
+public interface CustomerRepository extends JpaRepository<Customer, Integer>{
 	
 	//@Query("SELECT DISTINCT c FROM Customer c " +
 	//		"LEFT JOIN c.orders o " +

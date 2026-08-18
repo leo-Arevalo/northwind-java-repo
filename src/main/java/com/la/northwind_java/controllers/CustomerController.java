@@ -24,7 +24,6 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 
-import com.la.northwind_java.dtos.*;
 import com.la.northwind_java.dtos.customer.CustomerCreateDTO;
 import com.la.northwind_java.dtos.customer.CustomerDTO;
 import com.la.northwind_java.dtos.customer.CustomerUpdateDTO;
@@ -55,7 +54,7 @@ public class CustomerController {
 	@Operation(summary = "Get a customer by ID", description = "Requires ADMIN or USER role")
 	@GetMapping("/{id}")
 	@PreAuthorize("hasAnyRole('ADMIN', 'USER')")
-	public ResponseEntity<CustomerDTO> getCustomerById(@PathVariable Long id){
+	public ResponseEntity<CustomerDTO> getCustomerById(@PathVariable Integer id){
 		CustomerDTO customer = customerService.getCustomerById(id);
 		return ResponseEntity.ok(customer);
 	}
@@ -68,7 +67,7 @@ public class CustomerController {
 	 * @return
 	 */
 	@GetMapping("customer/{id}")
-	public ResponseEntity<CustomerDTO> getCustomer(@PathVariable Long id,
+	public ResponseEntity<CustomerDTO> getCustomer(@PathVariable Integer id,
 													Authentication authentication){
 													
 		SecurityUtils.validateAccessToCustomer(id, authentication);										
@@ -93,7 +92,7 @@ public class CustomerController {
 	@PutMapping("/{id}")
 	@PreAuthorize("hasRole('ADMIN')")
 	public ResponseEntity<CustomerDTO> updateCustomer(
-			@PathVariable Long id,
+			@PathVariable Integer id,
 			@Valid @RequestBody CustomerUpdateDTO customerUpdateDTO) {
 		CustomerDTO  customer = customerService.updateCustomer(id, customerUpdateDTO);
 		return ResponseEntity.ok(customer);
@@ -102,7 +101,7 @@ public class CustomerController {
 	@Operation(summary = "Delete a customer by ID", description = "Requires ADMIN role")
 	@DeleteMapping("/{id}")
 	@PreAuthorize("hasRole('ADMIN')")
-	public ResponseEntity<Void> deleteCustomer(@PathVariable Long id){
+	public ResponseEntity<Void> deleteCustomer(@PathVariable Integer id){
 		customerService.deleteCustomer(id);
 		return ResponseEntity.noContent().build();
 	}
