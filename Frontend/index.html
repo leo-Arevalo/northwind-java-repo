@@ -5,43 +5,160 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inicio</title>
-    <link rel = "stylesheet" href = "./css/index.css"/>
+    <title>Northwind | Panel Principal</title>
+    <link rel="stylesheet" href="css/suppliers.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="css/landing.css">
+    <link rel="stylesheet" href="https://cdnjs.coudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+
+    <!--link rel = "stylesheet" href = "./css/index.css"/ -->
 </head>
 <body>
-    
-    <div class = "dashboard-container">
-        <h1>Panel de Control</h1>
-        <div class="stats">
-            <div class="card" id="customerCount">Clientes: ...</div>
-            <div class="card" id="orderCount">Pedidos: ...</div>
-            <div class="card" id="productCount">Productos: ...</div>
-        </div>
-        <div class="actions">
-            <a href = "views/customer.html"> Ver Clientes</a>
-            <a href = "views/products.html"> Ver Productos</a>
-            <a href = "views/orders.html"> Ver Pedidos</a>
-            <a href = "views/billing.html"> Nueva Factura</a>
-        </div>
-        <button id = "getCustomersBtn"> Ir a Clientes</button>
-        <button id = "logoutBtn">Cerrar sesión</button>
+    <!-- HEADER -->
+    <div class="container">
+        <div class="logo">Northwind</div>
     </div>
+    <!-- NAVBAR -->
+    <nav class="navbar">
+        <ul class="menu">
+            <li class="dropdown">
+                <a href="#">Clientes</a>
+                <ul class="submenu">
+                    <li><a href="views/customers.html">Listado</a></li>
+                </ul>
+            </li>
+            <li class="dropdown">
+                <a href="#">Productos</a>
+                <ul class="submenu">
+                    <li><a href="views/products.html">Inventario</a></li>
+                </ul>
+            </li>
+            <li class="dropdown">
+                <a href="#">Pedidos</a>
+                <ul class="submenu">
+                    <li><a href="views/orders.html">Todos</a></li>
+                    <li><a href="views/billing.html">Nueva Factura</a></li>
+                </ul>
+            </li>
+            <li class="dropdown">
+                <a href="#">Proveedores</a>
+                <ul class="submenu">
+                    <li><a href="views/suppliers.html">Listado</a></li>
+                    <li><a href="views/suppliers-dashboard.html">dashboard</a></li>
+                </ul>
+            </li>
+        </ul>
+        <div class="auth-buttons">
+            <button id="logoutBtn" class="btn secondary">Cerrar Sesion</button>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Gestión Northwind</h1>
+            <p>Clientes, productos, stock y facturación en un solo lugar. SImple, rápido y hecho a medida del equipo</p>
+            <div class="hero-actions">
+                <a href="views/billing.html" class="btn primary">Nueva Factura</a>
+                <button id="getCustomersBtn" class="btn secondary">Ver Clientes</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- QUIENES SOMOS -->
+    <section class="about">
+        <h2>Quienes somos</h2>
+        <p>
+            Northwind es el sistema interno que usamos para administrar la relación con nuestros
+            clientes y proveedores: desde el alta de un cliente nuevo hasta la facturación de un
+            pedido, pasando por el control de stock de cada producto. Está pensado para que el 
+            equipo de ventas resuelva el día a día sin depender de planillas sueltas.
+        </p>
+    </section>
+
+    <!-- SERVICIOS / MODULOS -->
+    <section class="services">
+        <h2>Qué podés hacer acá</h2>
+        <div class="services-grid">
+            <div class="service-card">
+                <i class="fa-solid fa-users"></i>
+                <h3>Clientes</h3>
+                <p>Alta, edición y búsqueda de clientes, con creación rápida desde la propia factura.</p>
+            </div>
+
+            <div class="service-card">
+                <i class="fa-solid fa-boxes-stacked"></i>
+                <h3>Productos</h3>
+                <p>Catálogo de productos con precio, costo y control de stock por movimiento.</p>
+            </div>
+
+            <div class="service-card">
+                <i class="fa-solid fa-file-invoice-dollar"></i>
+                <h3>Facturación</h3>
+                <p>Armá una factura eligiendo cliente y productos, con impuestos y envío calculados al vuelo.</p>
+            </div>
+
+            <div class="service-card">
+                <i class="fa-solid fa-truck-field"></i>
+                <h3>Proveedores</h3>
+                <p>Seguimiento de proveedores y órdenes de compra, con dashboard de pagos.</p>
+            </div>
+        
+        </div>
+    </section>
+
+<!-- ESTADISTICAS -->
+<section class="stats-section">
+    <h2>Resumen general</h2>
+    <div id="statsKPIs" class="kpi-grid">
+        <div class="kpi-card">
+            <p>Clientes</p>
+            <h3 id="customerCount">--</h3>
+        </div>
+        <div class="kpi-card">
+            <p>Pedidos</p>
+            <h3 id="orderCount">--</h3>
+        </div>
+        <div class="kpi-card">
+            <p>Productos</p>
+            <h3 id="productCount">--</h3>
+        </div>
+    </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+    <div class="footer-container">
+        <div class="footer-column">
+            <h4>Northwind</h4>
+            <ul>
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="views/suppliers.html">Proveedores</a></li>
+            </ul>
+        </div>
+        <div class="footer-column">
+            <h4>Módulos</h4>
+            <ul>
+                <li><a href="views/customers.html">Clientes</a></li>
+                <li><a href="views/products.html">Productos</a></li>
+                <li><a href="views/orders.html">Pedidos</a></li>
+            </ul>
+        </div>
+        <div class="footer-column">
+            <h4>Contacto</h4>
+            <ul>
+                <li>info@Northwind.com</li>
+                <li>Buenos Aires, Argentina</li>
+            </ul>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        © 2026 Northwind · Uso interno
+    </div>
+</footer>
     
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    <script type = "module" src = "./js/index.js"></script>
+    <script type = "module" src = "js/index.js"></script>
 
 </body>
 </html>

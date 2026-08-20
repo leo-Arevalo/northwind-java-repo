@@ -1,5 +1,5 @@
-import { authService } from "./services/authService.js";
-import { apiClient } from "./services/apiClient.js";
+import { authService } from "../services/authService.js";
+import { apiClient } from "../services/apiClient.js";
 
 const API_URL = 'http://localhost:8080/orders';
 
@@ -27,7 +27,7 @@ const addOrderRow = (o) => {
     <td>${o.orderID}</td>
     <td>${clienteNombre}</td>
     <td>${o.orderDate ?? ''}</td>
-    <td>${o.shipperDate ?? ''}</td>
+    <td>${o.shippedDate ?? ''}</td>
     <td>${o.status ? o.status.statusName : ''}</td>
     <td>${o.shippingFee ?? ''}</td>
     <td>${o.taxes ?? ''}</td>
