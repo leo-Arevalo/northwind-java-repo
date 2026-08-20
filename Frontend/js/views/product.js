@@ -1,5 +1,5 @@
-import { authService } from "./services/authService.js";
-import { apiClient } from "./services/apiClient.js";
+import { authService } from "../services/authService.js";
+import { apiClient } from "../services/apiClient.js";
 
 const API_URL = 'http://localhost:8080/products';
 
@@ -35,8 +35,8 @@ const addProductRow = (p) => {
     <td>${p.productCode || ''}</td>
     <td>${p.productName}</td>
     <td>${p.category || ''}</td>
-    <td>${p.satandardCost ?? ''}</td>
-    <td>${p.satandardCost ?? ''}</td>
+    <td>${p.standardCost ?? ''}</td>
+    
     <td>${p.listPrice ?? ''}</td>
     <td>${p.reorderLevel ?? ''}</td>
     <td>${p.discontinued ? 'Si' : 'No'}</td>
@@ -70,7 +70,7 @@ newProductBtn.addEventListener("click", () => {
             targetLevel: document.getElementById("targetLevel").value ? parseInt (document.getElementById("targetLevel").value) : null,
             minimumReorderQuantity: document.getElementById("minimumReorderQuantity").value ? parseInt(document.getElementById("minimumReorderQuantity").value) : null,
             description: document.getElementById("description").value.trim(),
-            discontinued: document.getElementById("discontinued").ariaChecked
+            discontinued: document.getElementById("discontinued").checked
         };
     if(!product.productName || Number.isNaN(product.standardCost) || Number.isNaN(product.listPrice)) {
         alert("Nombre, costo y precio son obligatorios.");
@@ -136,7 +136,7 @@ tableBody.addEventListener("click", (e) => {
     }
 });
 document.getElementById("logoutBtn").addEventListener("click", async () => {
-    await authService.logoutFormServer();
+    await authService.logoutFromServer();
     window.location.href = "login.html";
 });
 document.addEventListener("DOMContentLoaded", loadProducts);
