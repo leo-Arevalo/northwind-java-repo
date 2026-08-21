@@ -35,7 +35,7 @@ document.getElementById("newCustomerBtn").addEventListener("click", () => custom
 
 // --- Cargar clientes y productos para los selects ---
 
-async function loadCustomers(selecId) {
+async function loadCustomers(selectId) {
     try{
         const data = await apiClient(`${API_BASE}/customers?page=0&size=200`).then(parseJsonOrThrow);
         customerSelect.innerHTML = '<option value="">-- seleccionar cliente --</option>';
@@ -53,7 +53,7 @@ async function loadCustomers(selecId) {
 
 async function loadProducts() {
     try{
-        const data = await apiClient(`${API_BASE}/products?page=0$size=200`).then(parseJsonOrThrow);
+        const data = await apiClient(`${API_BASE}/products?page=0&size=200`).then(parseJsonOrThrow);
         productSelect.innerHTML='<option value="">-- Seleccionar producto --</option>';
         (data.content || []).forEach(p => {
             productsById[p.productID] =p;
@@ -72,7 +72,7 @@ async function loadProducts() {
 // (el back valida igual al confirmar; esto es solo para no dejar
 // cargar a ciegas una cantidad que sabemos que va a rebotar)
 
-productSelect.addEventListener("cange", async () => {
+productSelect.addEventListener("change", async () => {
     stockInfo.textContent = "";
     const id = productSelect.value;
     if(!id) return;

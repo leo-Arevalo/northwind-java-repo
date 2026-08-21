@@ -54,10 +54,8 @@ public class OrderController {
 	
 	/**
      * Retrieves a paginated list of orders with optional filtering by customerId, employeeId, and status.
- 
      * 
      */
-	
 	@GetMapping
 	@PreAuthorize("hasAuthority('ROLE_ADMIN') or hasAuthority('ROLE_CUSTOMER') or hasAuthority('ROLE_USER')")
 	@Operation(summary = "Get paginated list of orders",
@@ -85,14 +83,12 @@ public class OrderController {
 	 *     * * ROLE_ADMIN Y ROLE_EMPLOYEE permite consultar a los admin y empleados
 	 * #id == authentication.principal.id Permite a un cliente consultar sus propios pedido y no los de otros clientes.
 	 */
-
 	
 	/**
 	 * Retrieves details of a specific order by ID.
 	 * @param id
 	 * @return
 	 */
-	
 	@PreAuthorize("hasAuthority('ROLE_ADMIN') or hasAuthority('ROLE_CUSTOMER')")
 	@GetMapping("/{id}")
 	@Operation(summary = "Get order details", description = "Retrieves details of a specific order by ID.")
@@ -102,10 +98,6 @@ public class OrderController {
 		//logger.info("Fetching order details for ID: {}",id);
 		return ResponseEntity.ok(orderService.getOrderById(id));
 	}
-	
-	
-	
-	
 	
 	
 	/**
