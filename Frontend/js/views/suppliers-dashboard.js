@@ -52,7 +52,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         acc[s.countryRegion] = (acc[s.countryRegion] || 0) + paid;
         return acc;
     },{});
-    renderChart("chartByCountry", Object.keys(byCountry), Object.values(byCountry), "Total por país", "doughnut" );
+    renderChart("chartByCountry", "Total por país", Object.keys(byCountry), Object.values(byCountry), "doughnut" );
 
      // Chart: Evolución mensual
     const monthly = orders.reduce((acc, o) => {
