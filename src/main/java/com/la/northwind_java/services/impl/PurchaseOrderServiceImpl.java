@@ -1,5 +1,6 @@
 package com.la.northwind_java.services.impl;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.dao.DataAccessException;
@@ -15,7 +16,11 @@ import com.la.northwind_java.config.exceptions.DatabaseException;
 import com.la.northwind_java.config.exceptions.ResourceNotFoundException;
 import com.la.northwind_java.dtos.purchaseOrder.*;
 import com.la.northwind_java.mappers.PurchaseOrderMapper;
+import com.la.northwind_java.models.InventoryTransaction;
+import com.la.northwind_java.models.InventoryTransactionType;
 import com.la.northwind_java.models.PurchaseOrder;
+import com.la.northwind_java.models.PurchaseOrderDetail;
+import com.la.northwind_java.models.PurchaseOrderStatus;
 import com.la.northwind_java.services.*;
 import com.la.northwind_java.specification.PurchaseOrderSpecification;
 
@@ -27,6 +32,10 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
 	
 	private final PurchaseOrderRepository repository;
 	private final PurchaseOrderMapper mapper;
+	private final PurchaseOrderStatusRepository statusRepository;
+	private final PurchaseOrderDetailRepository detailRepository;
+	private final InventoryTransactionRepository inventoryTransactionRepository;
+	private final InventoryTransactionTypeRepository inventoryTransactionTypeRepository;
 	
 	@Override
 	public Page<PurchaseOrderDTO> getOrders(PurchaseOrderSearchDTO filters, Pageable pageable){
@@ -70,9 +79,61 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
 				.orElseThrow(()->new ResourceNotFoundException("PurchaseOrder not found with id "+ id));
 		try {
 				mapper.updateEntity(dto, entity);
-				return mapper.toDTO(repository.save(entity));
+				
+				//El mapper ignora "status" a proposito (statusId es un id suelto,
+				// no puede resolver la relacion solo). Se resuelve aca.
+				boolean wasAlreadyClosed = entity.getStatus() != null
+						&& "Closed".equalsIgnoreCase(entity.getStatus().getStatus());
+				
+				if(dto.getStatusId() != null) {
+					PurchaseOrderStatus status = statusRepository.findById(dto.getStatusId())
+							.orElseThrow(() -> new ResourceNotFoundException(
+									"Estado de orden de compra no encontrado: "+ dto.getStatusId()));
+					entity.setStatus(status);
+				}
+				PurchaseOrder saved = repository.save(entity);
+				
+				boolean isNowClosed = saved.getStatus() != null
+						&& "Closed".equalsIgnoreCase(saved.getStatus().getStatus());
+				
+				//Al cerrar (recibir) la orden, se postean al inventario las
+				//lineas que tovia no se postearon - asi se repone stock.
+				
+				if(isNowClosed && !wasAlreadyClosed) {
+					postPendingLinesToInventory(saved);
+				}
+				
+				return mapper.toDTO(saved);
 		}catch(DataAccessException e) {
 			throw new DatabaseException("Error updating purchase order with id " +id, e);
+		}
+	}
+	
+	
+	private void postPendingLinesToInventory(PurchaseOrder order) {
+		InventoryTransactionType purchasedType = inventoryTransactionTypeRepository.findByTypeName("Purchased")
+				.orElseThrow(() -> new ResourceNotFoundException (
+					"No se encontro el tipo de transacción de inventario 'Purchased'. Verificar seed de la base."));
+		List<PurchaseOrderDetail> lines = detailRepository.findByPurchaseOrder_Id(order.getId());
+		for(PurchaseOrderDetail line : lines) {
+			if(Boolean.TRUE.equals(line.getPostedToInventory())) {
+				continue; //ya se poseo antes, no duplicar
+			}
+			
+			InventoryTransaction movement = InventoryTransaction.builder()
+					.transactionType(purchasedType)
+					.product(line.getProduct())
+					.quantity(line.getQuantity() != null ? line.getQuantity().intValue() : 0)
+					.purchaseOrder(order)
+					.transactionModifiedDate(LocalDateTime.now())
+					.comments("Recepcion de compra #" + order.getId())
+					.build();
+			InventoryTransaction savedMovement = inventoryTransactionRepository.save(movement);
+			
+			line.setInventoryTransaction(savedMovement);
+			line.setPostedToInventory(true);
+			line.setDateReceived(LocalDateTime.now());
+			detailRepository.save(line);	
 		}
 	}
 	
