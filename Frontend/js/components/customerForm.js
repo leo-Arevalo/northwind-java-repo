@@ -33,7 +33,7 @@ export function initCustomerForm({ formContainer, onSaved }) {
         "address", "city", "stateProvince", "postalCode", "countryRegion", "webPage"
     ];
 
-    const getField = (id) => formContainer.querySelector('#${id}');
+    const getField = (id) => formContainer.querySelector(`#${id}`);
 
     async function openNew() {
         form.reset();
