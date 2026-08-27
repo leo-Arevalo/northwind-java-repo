@@ -7,6 +7,7 @@ import java.util.List;
 import org.hibernate.validator.constraints.URL;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.la.northwind_java.security.models.User;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -20,6 +21,7 @@ import jakarta.persistence.Lob;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.PreUpdate;
 import jakarta.persistence.Table;
@@ -200,6 +202,9 @@ public class Employee {
     @JsonIgnore
     @OneToMany(mappedBy = "submittedBy", fetch = FetchType.LAZY)
     private List<PurchaseOrder> submittedPurchaseOrders = new ArrayList<>();
+    
+    @OneToOne(mappedBy = "employee")
+    private User user;
     
     /**
      * Privileges assigned to this employee.
