@@ -53,6 +53,7 @@ public class SecurityConfig {
 				.requestMatchers("/customers/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_EMPLOYEE")
 				.requestMatchers("/products/**").hasAnyAuthority("ROLE_ADMIN","ROLE_EMPLOYEE")
 				.requestMatchers("/suppliers/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_EMPLOYEE")
+				.requestMatchers("api/users/**").hasAuthority("ROLE_ADMIN")
 				.anyRequest().authenticated()
 				)
 				.authenticationProvider(authenticationProvider())
