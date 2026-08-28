@@ -6,6 +6,9 @@ import java.util.List;
 import org.springframework.dao.DataAccessException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import com.la.northwind_java.repositories.*;
@@ -82,6 +85,7 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
 				
 				//El mapper ignora "status" a proposito (statusId es un id suelto,
 				// no puede resolver la relacion solo). Se resuelve aca.
+				
 				boolean wasAlreadyClosed = entity.getStatus() != null
 						&& "Closed".equalsIgnoreCase(entity.getStatus().getStatus());
 				
@@ -100,6 +104,7 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
 				//lineas que tovia no se postearon - asi se repone stock.
 				
 				if(isNowClosed && !wasAlreadyClosed) {
+					requirePrivilege("PRIV_PURCHASE_APRPROVALS");
 					postPendingLinesToInventory(saved);
 				}
 				
@@ -108,6 +113,25 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
 			throw new DatabaseException("Error updating purchase order with id " +id, e);
 		}
 	}
+	
+	/**
+	 * Chequeo de autorizacion a nivel de regla de negocio, no de endpoint:
+	 * cualquier ROLE_ADMIN puede editar campos sueltos de una orden de
+	 * compra (@PreAuthorize del controller), pero aprobarla/cerrarla -
+	 * la accion que dispara movimientos reales de inventario - requiere
+	 * ademas el privilegio especifico del Employee vinculado al usuario.
+	 * @param order
+	 */
+	private void requirePrivilege(String authority) {
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		boolean hasPrivilege = auth != null && auth.getAuthorities().stream()
+				.anyMatch(a -> a.getAuthority().equals(authority));
+		if(!hasPrivilege) {
+			throw new AccessDeniedException(
+					"Se requiere el privilegio 'Purchase Approvals' para aprobar/cerrar una orden de compra.");
+		}
+	}
+	
 	
 	
 	private void postPendingLinesToInventory(PurchaseOrder order) {

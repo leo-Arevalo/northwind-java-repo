@@ -11,6 +11,8 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import com.la.northwind_java.models.Employee;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -22,7 +24,9 @@ import jakarta.persistence.JoinTable;
 import jakarta.persistence.JoinColumn;
 
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -80,6 +84,10 @@ public class User implements UserDetails{
 	@JoinTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"),
 	inverseJoinColumns = @JoinColumn(name ="role_id"))
 	private Set<Role> roles = new HashSet<>();
+	
+	@OneToOne(fetch= FetchType.EAGER)
+	@JoinColumn(name = "employee_id")
+	private Employee employee;
 	
 	
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL,

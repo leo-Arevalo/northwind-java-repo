@@ -1,3 +1,12 @@
+.logo-banner{
+    max-width: 320px;
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+
+
 .hero{
     background: linear-gradient(135deg, #004080, #0066cc);
     color: white;

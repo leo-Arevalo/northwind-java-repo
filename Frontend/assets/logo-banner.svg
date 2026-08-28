@@ -1,0 +1,29 @@
+<svg width="900" height="220" viewBox="0 0 900 220" xmlns="http://www.w3.org/2000/svg" role="img">
+  <title>Northwind Trading Co.</title>
+  <defs>
+    <linearGradient id="bgGradient" x1="0" y1="0" x2="900" y2="220" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#003366"/>
+      <stop offset="1" stop-color="#0066cc"/>
+    </linearGradient>
+    <linearGradient id="badgeGradient" x1="20" y1="20" x2="200" y2="200" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#ffffff"/>
+      <stop offset="1" stop-color="#d5ebff"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="900" height="220" fill="url(#bgGradient)"/>
+
+  <path d="M -50 60 C 200 10, 500 140, 950 40" fill="none" stroke="#ffffff" stroke-opacity="0.08" stroke-width="34" stroke-linecap="round"/>
+  <path d="M -50 170 C 250 210, 550 90, 950 190" fill="none" stroke="#ffffff" stroke-opacity="0.06" stroke-width="26" stroke-linecap="round"/>
+
+  <circle cx="110" cy="110" r="90" fill="url(#badgeGradient)" stroke="#ffffff" stroke-opacity="0.5" stroke-width="2"/>
+
+  <path d="M110,48 L125.6,94.4 L172,110 L125.6,125.6 L110,172 L94.4,125.6 L48,110 L94.4,94.4 Z" fill="#003366"/>
+  <path d="M110,48 L125.6,94.4 L110,110 L94.4,94.4 Z" fill="#e0a336"/>
+  <circle cx="110" cy="110" r="6" fill="#ffffff"/>
+
+  <text x="235" y="128" font-family="'Segoe UI', Arial, sans-serif" font-size="54" font-weight="700" letter-spacing="5" fill="#ffffff">NORTHWIND</text>
+  <text x="237" y="158" font-family="'Segoe UI', Arial, sans-serif" font-size="15" font-weight="400" letter-spacing="6" fill="#cfe8ff" opacity="0.9">TRADING CO.</text>
+
+  <rect x="0" y="216" width="900" height="4" fill="#e0a336"/>
+</svg>
