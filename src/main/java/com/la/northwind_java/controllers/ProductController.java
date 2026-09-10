@@ -76,10 +76,19 @@ public class ProductController {
 	}
 	
 	
+	@Operation(summary = "Get products a given supplier can provide", description = "Requires ADMIN or EMPLOYEE role")
+	@GetMapping("/by-supplier/{supplierId}")
+	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN', 'ROLE_EMPLOYEE')")
+	public ResponseEntity<java.util.List<ProductDTO>> getProductsBySupplier(@PathVariable Integer supplierId){
+		return ResponseEntity.ok(productService.getProductsBySupplier(supplierId));
+	}
 	
-	
-	
-	
+	@Operation(summary = "Get available stock for a product", description = "Calculado a partir del historial de InventoryTransaction")
+	@GetMapping("/{id}/stock")
+	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN', 'ROLE_EMPLOYEE')")	
+	public ResponseEntity<com.la.northwind_java.dtos.product.ProductStockDTO> getAvailableStock(@PathVariable Integer id){
+		return ResponseEntity.ok(productService.getAvailableStock(id));
+	}
 	
 	
 	

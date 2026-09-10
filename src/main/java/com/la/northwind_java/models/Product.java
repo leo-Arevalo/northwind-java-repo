@@ -39,6 +39,13 @@ public class Product {
 	@Column(name = "id")
 	private int productID;
 	
+	//Guardado tal cual esta en la base de datos: "4", o "4,7,12" (varios ids
+	//separados por coma). No se normaliza a una tabla intermedia para no
+	//tocar el esquema existente.
+	
+	@Column(name = "supplier_ids", columnDefinition = "TEXT")
+	private String supplierIds;
+	
 	@Column(name = "product_code", length=25)
 	private String productCode;
 	
@@ -78,7 +85,32 @@ public class Product {
 	@OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<OrderDetails> orderDetails = new ArrayList<>();
 
-
+	/**
+	 * Parsea supplierIds ("4,7,12") a una lista de enteros. Devuelve
+	 * lista vacia si es null/blanco - nunca null, asi el que la usa
+	 * no tiene que checkear que sea null
+	 */
+	
+	public List<Integer> getSupplierIdList() {
+		if(supplierIds == null || supplierIds.isBlank()) {
+			return new ArrayList<>();
+		}
+		List<Integer> ids = new ArrayList<>();
+		for(String part : supplierIds.split(",")) {
+			String trimmed = part.trim();
+			if(!trimmed.isEmpty()) {
+				ids.add(Integer.parseInt(trimmed));
+				}
+		}
+		return ids;
+	}
+	
+	
 	
 
 }
+
+
+
+
+
