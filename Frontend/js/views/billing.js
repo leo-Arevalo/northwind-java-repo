@@ -5,10 +5,34 @@ import { initCustomerForm } from "../components/customerForm.js";
 const API_BASE = "http://localhost:8080";
 
 if(!authService.getAccessToken()){
-    window.location.href = "login.html";
+    window.location.href = "../views/login.html";
 }
 
 const customerSelect = document.getElementById("customerSelect");
+const step2Card = document.getElementById("step2Card");
+const step3Card = document.getElementById("step3Card");
+
+/**
+ * Bloquea / desbloquea los pasos 2 y 3 segun el avance real:
+ * paso 2 (agregar producto) requiere cliente elegido, paso 3
+ * (envio / impuesto) requiere al menos un producto en la factura.
+ */
+
+function updateStepGating() {
+    const hasCustomer = !!customerSelect.value;
+    const hasLines = lines.length > 0;
+
+    setCardEnabled(step2Card, hasCustomer);
+    setCardEnabled(step3Card, hasCustomer && hasLines);
+}
+function setCardEnabled(card, enabled){
+    card.classList.toggle("step-disabled", !enabled)
+    card.querySelectorAll("input, select, button").forEach(el => {
+        el.disabled = !enabled;
+    });
+}
+
+customerSelect.addEventListener("change", updateStepGating);
 const productSelect = document.getElementById("productSelect");
 const quantityInput = document.getElementById("quantityInput");
 const stockInfo = document.getElementById("stockInfo");
@@ -27,7 +51,7 @@ const customerForm = initCustomerForm({
     formContainer: document.getElementById("customerForm"),
     onSaved: (savedCustomer) => {
         if(savedCustomer){
-            loadCustomers(savedCustomer.id);
+            loadCustomers(savedCustomer.id).then(updateStepGating);
         }
     }
 });
@@ -85,7 +109,7 @@ productSelect.addEventListener("change", async () => {
 });
 
 // ---- Agregar linea a la factura ----
-document.getElementById("addLineBtn").addEventListener("click", () => {
+document.getElementById("addLineBtn").addEventListener("click", async () => {
     const productId = productSelect.value;
     const quantity = parseInt(quantityInput.value);
 
@@ -97,6 +121,27 @@ document.getElementById("addLineBtn").addEventListener("click", () => {
         alert("La cantidad debe ser mayo a 0.");
         return;
     }
+
+    // Validar stock disponible ANTES de agregar la línea, para no
+    //dejar cargar una cantidad que el backend va a rechazar igual
+    //al confirmar la factura.
+
+    const existingQty = lines
+        .filter(l => l.productId === productId)
+        .reduce((sum, l) => sum + l.quantity, 0);
+    try{
+        const stock = await apiClient(`${API_BASE}/products/${productId}/stock`).then(parseJsonOrThrow);
+        if (existingQty + quantity > stock.availableStock) {
+            alert(`Stock insuficiente. Disponible: ${stock.availableStock}, ya tenés ${existingQty} en la factura, estás pidiendo ${quantity} más. `);
+            return;
+        }
+    }catch (err) {
+        alert("No se pudo validar el stock: " +  err.message);
+        return;
+    }
+
+
+
     const product = productsById[productId];
     const existing = lines.find(l => l.productId === productId);
     if(existing){
@@ -110,6 +155,12 @@ document.getElementById("addLineBtn").addEventListener("click", () => {
         });
     }
     renderLines();
+    //Lipiamos el formulario para la proxima línea - antes quedaba el
+    //producto anterior seleccionado, invitando a error.
+    productSelect.value = "";
+    quantityInput.value = 1;
+    stockInfo.textContent = "";
+
 });
 
 function renderLines() {
@@ -127,6 +178,7 @@ function renderLines() {
         linesBody.appendChild(row);
     });
     recalcTotals();
+    updateStepGating();
 }
 linesBody.addEventListener("click", (e) => {
     if(e.target.classList.contains("remove-line-btn")) {
@@ -205,12 +257,13 @@ document.getElementById("submitOrderBtn").addEventListener("click", async () => 
 
 document.getElementById("logoutBtn").addEventListener("click", async () => {
     await authService.logoutFromServer();
-    window.location.href = "login.html";
+    window.location.href = "../views/login.html";
 });
 
 document.addEventListener("DOMContentLoaded", () => {
     loadCustomers();
     loadProducts();
+    updateStepGating();
 });
 
 

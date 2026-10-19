@@ -4,6 +4,7 @@ package com.la.northwind_java.dtos.purchaseOrder;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.NotNull;
@@ -69,5 +70,7 @@ public class PurchaseOrderDTO {
 	private LocalDate approvedDate;
 	@Positive(message = "SubmittedBy must be a positive number.")
 	private Integer submittedBy;
+	
+	private List<PurchaseOrderLineDTO> orderDetails;
 	
 }

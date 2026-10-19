@@ -1,0 +1,200 @@
+.billing-page {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+.billing-page h1 {
+    color: #003366;
+    margin-bottom: 0.25rem;
+}
+
+.billing-page .subtitle {
+    color: #667;
+    margin-bottom: 1.5rem;
+}
+
+.billing-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.25rem;
+    margin-bottom: 1.5rem;
+    align-items: start;
+}
+
+.billing-card {
+    background: white;
+    border-radius: 12px;
+    padding: 1.5rem;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+}
+.billing-card h2 {
+    color: #003366;
+    font-size: 1.1rem;
+    margin-top: 0;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+}
+.step-badge {
+    background: #0066cc;
+    color: white;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.85rem;
+    font-weight: bold;
+}
+
+.billing-card select,
+.billing-card input {
+    width: 100%;
+    padding: 0.6rem;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    box-sizing: border-box;
+    margin-bottom: 0.75rem;
+}
+
+.qty-row {
+    display: flex;
+    gap: 0.5rem;
+}
+.qty-row input {
+    flex: 1;
+}
+.qty-row button {
+    white-space: nowrap;
+}
+
+.two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.5rem;
+}
+
+.stock-info {
+    font-size: 0.85rem;
+    color: #0066cc;
+    font-weight: 600;
+    min-height: 1.2em;
+}
+
+.full-width {
+    width: 100%;
+}
+
+.detail-card .total-row td {
+    font-size: 1.05rem;
+    color: #003366;
+    border-top: 2px solid #0066cc;
+}
+
+.submit-invoice-btn {
+    margin-top: 1.25rem;
+    font-size: 1.05rem;
+    padding: 0.8rem 1.8rem;
+}
+
+#orderResult.po-success, #orderResult.stock-warning {
+    font-weight: bold;
+    margin-top: 0.75rem;
+}
+#orderResult.po-success { color: #2b8a3e; }
+#orderResult.stock-warning { color: #d00000; }
+
+/* Modal de cliente nuevo */
+#customerForm.modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.45);
+    align-items: center;
+    justify-content: center;
+    z-index: 100;
+}
+#customerForm .modal-content {
+    background: white;
+    padding: 1.75rem;
+    border-radius: 12px;
+    max-width: 480px;
+    width: 90%;
+    max-height: 85vh;
+    overflow-y: auto;
+}
+#customerForm .modal-content h3 {
+    color: #003366;
+    margin-top: 0;
+}
+#customerForm input {
+    width: 100%;
+    padding: 0.55rem;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    box-sizing: border-box;
+    margin-bottom: 0.65rem;
+}
+.modal-actions {
+    display: flex;
+    gap: 0.6rem;
+    margin-top: 0.5rem;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.field-label {
+    display: block;
+    font-size: 0.75rem;
+    color: #555;
+    font-weight: 600;
+    margin-bottom: 0.2rem;
+}
+.field-hint {
+    font-size: 0.8rem;
+    color: #888;
+    margin-top: -0.4rem;
+    margin-bottom: 0.75rem;
+}
+
+.step-disabled {
+    opacity: 0.45;
+    pointer-events: none;
+    position: relative;
+}
+.step-disabled::after {
+    content: "Completá el paso anterior primero";
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255,255,255,0.6);
+    color: #666;
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-align: center;
+    padding: 1rem;
+    border-radius: 12px;
+}

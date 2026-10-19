@@ -21,10 +21,12 @@ import com.la.northwind_java.dtos.purchaseOrder.*;
 import com.la.northwind_java.mappers.PurchaseOrderMapper;
 import com.la.northwind_java.models.InventoryTransaction;
 import com.la.northwind_java.models.InventoryTransactionType;
+import com.la.northwind_java.models.Product;
 import com.la.northwind_java.models.PurchaseOrder;
 import com.la.northwind_java.models.PurchaseOrderDetail;
 import com.la.northwind_java.models.PurchaseOrderStatus;
 import com.la.northwind_java.services.*;
+import com.la.northwind_java.models.Supplier;
 import com.la.northwind_java.specification.PurchaseOrderSpecification;
 
 import lombok.RequiredArgsConstructor;
@@ -32,6 +34,8 @@ import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor
 public class PurchaseOrderServiceImpl implements PurchaseOrderService {
+
+    private final SupplierRepository supplierRepository;
 	
 	private final PurchaseOrderRepository repository;
 	private final PurchaseOrderMapper mapper;
@@ -39,6 +43,13 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
 	private final PurchaseOrderDetailRepository detailRepository;
 	private final InventoryTransactionRepository inventoryTransactionRepository;
 	private final InventoryTransactionTypeRepository inventoryTransactionTypeRepository;
+	private final ProductRepository productRepository;
+	
+	//Estado por defecto para una orden de compra recien creada (seed
+	//purchase_order_status: 0 = 'New')
+	private static final Integer DEFAULT_PO_STATUS_ID = 0;
+
+
 	
 	@Override
 	public Page<PurchaseOrderDTO> getOrders(PurchaseOrderSearchDTO filters, Pageable pageable){
@@ -48,9 +59,20 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
 	
 	@Override
 	public PurchaseOrderDTO getById(Integer id) {
-		return repository.findById(id)
-				.map(mapper::toDTO)
-				.orElseThrow(()-> new ResourceNotFoundException("PurchaseOrder not found with id "+id));
+		PurchaseOrder po = repository.findById(id)
+				.orElseThrow(()-> new ResourceNotFoundException("PurchaseOrder not found with id: "+id));
+		PurchaseOrderDTO dto = mapper.toDTO(po);
+		dto.setOrderDetails(detailRepository.findByPurchaseOrder_Id(id).stream()
+					.map(line -> PurchaseOrderLineDTO.builder()
+							.productId(line.getProduct().getProductID())
+							.productName(line.getProduct().getProductName())
+							.quantity(line.getQuantity())
+							.unitCost(line.getUnitCost())
+							.postedToInventory(line.getPostedToInventory())
+							.build())
+					.toList());
+		return dto;
+		
 	}
 	
 	@Override
@@ -67,9 +89,48 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
 	@Transactional
 	public PurchaseOrderDTO create(PurchaseOrderCreateDTO dto) {
 		try {
+			Supplier supplier = supplierRepository.findById(dto.getSupplierId())
+								.orElseThrow(()-> new ResourceNotFoundException(
+										"Proveedor no encontrado con id: "+dto.getSupplierId()));
+			PurchaseOrderStatus status = statusRepository.findById(
+					dto.getStatusId() != null ? dto.getStatusId() : DEFAULT_PO_STATUS_ID)
+					.orElseThrow(()-> new ResourceNotFoundException("Estado de orden de compra no encontrado"));
 			PurchaseOrder entity = mapper.toEntity(dto);
+			//El mapper ignora estas relaciones a proposito (no puede
+			//resolverlas solo con un id suelto); se resuelven aca.
+			entity.setSupplier(supplier);
+			entity.setStatus(status);
+			entity.setExpectedDate(dto.getExpectedDate()!= null ? dto.getExpectedDate().atStartOfDay() : null);	
 			PurchaseOrder saved = repository.save(entity);
-			return mapper.toDTO(saved);
+			
+			List<PurchaseOrderDetail> lines = dto.getOrderDetails().stream()
+					.map(line-> {
+						Product product = productRepository.findById(line.getProductId())
+								.orElseThrow(() -> new ResourceNotFoundException(
+										"Producto no encontrado con id: "+ line.getProductId()));
+						return PurchaseOrderDetail.builder()
+								.purchaseOrder(saved)
+								.product(product)
+								.quantity(line.getQuantity())
+								.unitCost(line.getUnitCost())
+								.postedToInventory(false)
+								.build();
+					})
+					.toList();
+			detailRepository.saveAll(lines);
+			
+			PurchaseOrderDTO result = mapper.toDTO(saved);
+			result.setOrderDetails(lines.stream()
+					.map(l -> PurchaseOrderLineDTO.builder()
+							.productId(l.getProduct().getProductID())
+							.productName(l.getProduct().getProductName())
+							.quantity(l.getQuantity())
+							.unitCost(l.getUnitCost())
+							.postedToInventory(l.getPostedToInventory())
+							.build())
+					.toList());
+			return result;
+
 		}catch(DataAccessException e) {
 			throw new DatabaseException("Error creating purchase order.", e);
 		}
