@@ -1,5 +1,7 @@
 package com.la.northwind_java.controllers;
 
+import java.util.List;
+
 import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Page;
@@ -75,7 +77,19 @@ public class ProductController {
 		return ResponseEntity.noContent().build();
 	}
 	
+	@Operation(summary = "Get products a given supplier can provide", description = "Requires ADMIN or EMPLOYEE role")
+	@GetMapping("/by-supplier/{supplierId}")
+	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN', 'ROLE_EMPLOYEE')")
+	public ResponseEntity<List<ProductDTO>> getProductsBySupplier(@PathVariable Integer supplierId){
+		return ResponseEntity.ok(productService.getProductsBySupplier(supplierId));
+	}
 	
+	@Operation(summary = "Get available stock for a product", description = "Calculado a partir del historial de InventoryTransaction")
+	@GetMapping("/{id}/stock")
+	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN', 'ROLE_EMPLOYEE')")
+	public ResponseEntity<ProductStockDTO> getAvailableStock(@PathVariable Integer id){
+		return ResponseEntity.ok(productService.getAvailableStock(id));
+	}
 	
 	
 	
