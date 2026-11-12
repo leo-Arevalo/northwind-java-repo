@@ -1,0 +1,109 @@
+
+.po-page {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+.po-page h1 {
+    color: #003366;
+    margin-bottom: 0.25rem;
+}
+.po-page .subtitle {
+    color: #666;
+    margin-bottom: 1.5rem;
+}
+
+.po-card {
+    background: white;
+    border-radius: 12px;
+    padding: 1.5rem 2rem;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+    margin-bottom: 2rem;
+}
+.po-card h2 {
+    color: #003366;
+    margin-top: 0;
+}
+
+.po-form-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 1rem;
+    align-items: end;
+    margin-bottom: 1.25rem;
+}
+.po-form-grid label {
+    display: block;
+    font-size: 0.85rem;
+    color: #555;
+    margin-bottom: 0.3rem;
+    font-weight: 600;
+}
+.po-form-grid select,
+.po-form-grid input {
+    width: 100%;
+    padding: 0.55rem;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    box-sizing: border-box;
+}
+.po-add-btn-wrap {
+    display: flex;
+    align-items: flex-end;
+}
+
+.btn {
+    padding: 0.6rem 1.2rem;
+    border-radius: 6px;
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 0.95rem;
+}
+.btn.primary {
+    background: #0066cc;
+    color: white;
+}
+.btn.primary:hover {
+    background: #004080;
+}
+.btn.secondary {
+    background: #e8f1fb;
+    color: #004080;
+}
+
+.po-lines-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+}
+.po-lines-table th, .po-lines-table td {
+    padding: 0.6rem;
+    text-align: left;
+    border-bottom: 1px solid #eee;
+}
+.po-lines-table thead {
+    background: #f4f8fc;
+}
+.po-lines-table tfoot td {
+    font-weight: bold;
+}
+
+.submit-po-btn {
+    margin-top: 1.25rem;
+}
+
+#poResult.po-success {
+    color: #2b8a3e;
+    font-weight: bold;
+}
+#poResult.po-error {
+    color: #d00000;
+    font-weight: bold;
+}
+
+.logo-banner-small {
+    max-width: 200px;
+    width: 100%;
+    height: auto;
+}
