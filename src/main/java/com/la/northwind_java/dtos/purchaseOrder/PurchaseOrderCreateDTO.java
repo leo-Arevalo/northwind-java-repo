@@ -27,30 +27,27 @@ public class PurchaseOrderCreateDTO {
 	@Positive(message = "Supplier ID must be a positive number.")
 	private Integer supplierId;
 	
-	@NotNull(message = "CreatedBy is required.")
+
 	@Positive(message = "CreatedBy must be a positive number.")
 	private Integer createdBy;
 	
 	private LocalDate submittedDate;
 	
-	@NotNull(message = "Created Date is required")
+
 	private LocalDate creationDate;
 	
-	@NotNull(message = "Status ID is required")
+
 	@Positive(message = "Status ID must be a positive number.")
 	private Integer statusId;
 	
 	private LocalDate expectedDate;
 	
-	@NotNull(message = "Shipping fee is required")
+
 	@DecimalMin(value = "0.0", inclusive = true, message = "Shipping fee must be non-negative")
 	private BigDecimal shippingFee;
 	
-	@NotNull(message = "Taxes value is required")
 	@DecimalMin(value = "0.0", inclusive = true, message = "Taxes must be non-negative")
 	private BigDecimal taxes;
-	
-	
 	
 	private LocalDate paymentDate;
 	
@@ -71,9 +68,7 @@ public class PurchaseOrderCreateDTO {
 	@Positive(message = "SubmittedBy must be a positive number.")
 	private Integer submittedBy;
 	
-	
 	private List<PurchaseOrderLineDTO> orderDetails;
-	
 	
 }
 

@@ -27,7 +27,7 @@ import com.la.northwind_java.models.Shipper;
  * Mapper interface for converting between Order entities and DTOs.
  * Uses MapStruct for automatic mapping.
  * 
- * @author LeO
+ * @author Leonardo Esteban Arevalo
  *
  */
 
@@ -39,6 +39,8 @@ public interface OrderMapper {
 	 * Maps nested objects to their corresponding DTO representations.
 	 */
 			//model						DTO
+	@Mapping(source = "id", target = "orderID")
+	@Mapping(target = "payments", ignore = true) //lo completa OrderServiceImpl desde order_payments
 	@Mapping(source = "customer", target = "customer")
 	@Mapping(source = "employee", target = "employee")
 	@Mapping(source = "orderDate", target = "orderDate")

@@ -39,10 +39,11 @@ public class Product {
 	@Column(name = "id")
 	private int productID;
 	
-	//Guardado tal cual esta en la base de datos: "4", o "4,7,12" (varios ids
-	//separados por coma). No se normaliza a una tabla intermedia para no
-	//tocar el esquema existente.
-	
+	/*
+	 * Guardado tal cual esta en la base: "4" o "4, 7, 12" (varios ids
+	 * separados por coma). No se normaliza a una tabla intermedia
+	 * para no tocar el esquema existente.
+	 */
 	@Column(name = "supplier_ids", columnDefinition = "TEXT")
 	private String supplierIds;
 	
@@ -100,14 +101,12 @@ public class Product {
 			String trimmed = part.trim();
 			if(!trimmed.isEmpty()) {
 				ids.add(Integer.parseInt(trimmed));
-				}
+			}
 		}
 		return ids;
 	}
 	
 	
-	
-
 }
 
 

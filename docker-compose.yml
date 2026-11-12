@@ -12,6 +12,7 @@ services:
       - ./docker-northwind.sql:/docker-entrypoint-initdb.d/01-northwind.sql:ro
       - ./migrations/V1__add_employee_id_to_users.sql:/docker-entrypoint-initdb.d/02-add-employee-id.sql:ro
       - ./migrations/V2__employee_id_unique.sql:/docker-entrypoint-initdb.d/03-employee-id-unique.sql:ro
+      - ./migrations/V3__order_payments.sql:/docker-entrypoint-initdb.d/04-order-payments.sql:ro
       - northwind_data:/var/lib/mysql
     healthcheck:
       test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-uroot", "-proot"]

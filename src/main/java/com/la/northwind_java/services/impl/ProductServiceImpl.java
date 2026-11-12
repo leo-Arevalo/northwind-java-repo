@@ -30,10 +30,9 @@ public class ProductServiceImpl implements ProductService {
 	
 	
 	private final ProductRepository productRepository;
-	
 	private final ProductMapper productMapper;
-	
 	private final InventoryTransactionRepository inventoryTransactionRepository;
+	
 	/*
 	 * Creates a new product.
 	 */
@@ -46,7 +45,6 @@ public class ProductServiceImpl implements ProductService {
 		}catch(DataAccessException e) {
 			throw new DatabaseException("Error creating product", e);
 		}
-
 	}
 	
 	/*

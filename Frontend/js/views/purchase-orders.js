@@ -49,15 +49,14 @@ async function loadProducts(supplierId) {
             ? '<option value="">-- Seleccionar producto --</option>'
             : '<option value="">-- Elegí primero un proveedor --</option>';
         products.forEach(p => {
-            productsById[p.productID]=p;
+            productsById[p.productID] = p;
             const opt = document.createElement("option");
             opt.value = p.productID;
             opt.textContent = `${p.productName} (costo ref. $${p.standardCost})`;
             productSelect.appendChild(opt);
-
         });
         if(supplierId && products.length === 0){
-            productSelect.innerHTML = '<option value="">--Este proveedor no tiene productos cargados --</option>';
+            productSelect.innerHTML = '<option value="">-- Este proveedor no tiene productos cargados --</option>';
         }
     }catch(err){
         poResult.textContent = "Error al cargar productos: "+err.message;
@@ -115,9 +114,13 @@ function renderLines() {
     });
     totalCell.textContent = `$${total.toFixed(2)}`;
 }
-
-linesBody.addEventListener("click", (e) => {
-    if(e.target.classList.contains("remove-line-btn")) {
+//e toda la información del evento
+//e.target el elemento html donde se hizo clic
+//classList es una lista de las clases css de la pagina
+//lines.splice(posicion, cantidad) metodo de los array (listas) en js para agregar o quitar elementos.
+//e.target.dataset.idx posicion del boton de la fila
+linesBody.addEventListener("click", (e) => { //e informacion del evento
+    if(e.target.classList.contains("remove-line-btn")){ //e.target el objeto html sobre el cual se hizo clic. 
         lines.splice(parseInt(e.target.dataset.idx), 1);
         renderLines();
     }

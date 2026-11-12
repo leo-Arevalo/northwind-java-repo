@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Facturación</title>
+    <title>Northwind | Facturación</title>
     <link rel="stylesheet" href="../css/suppliers.css"/>
     <link rel="stylesheet" href="../css/dashboard.css">
     <link rel="stylesheet" href="../css/purchase-orders.css">
     <link rel="stylesheet" href="../css/billing.css">
-
+    
 </head>
 
 <body>
@@ -20,18 +20,20 @@
     <nav class="navbar">
         <ul class="menu">
             <li><a href="../index.html">Inicio</a></li>
-            <li><a href="cusgtomers.html">Clientes</a></li>
+            <li><a href="customers.html">Clientes</a></li>
             <li><a href="products.html">Productos</a></li>
             <li><a href="orders.html">Pedidos</a></li>
             <li><a href="suppliers.html">Proveedores</a></li>
         </ul>
         <div class="auth-buttons">
-            <button id="logoutBtn" class="btn secondary">cerrar sesión</button>
+            <button id="logoutBtn" class="btn secondary"> Cerrar sesión</button>
         </div>
     </nav>
     <main class="billing-page">
+
         <h2>Nueva Factura</h2>
-        <p class="subtitle">Elegí un cliente, agregá productos y confirmá - el stock se descuenta automáticamente al guardar.</p>
+        <p class="subtitle">Elegí un cliente, agregá productos y confirmá - el stock se descuenta automáticamente al
+            guardar.</p>
 
         <div class="billing-grid">
             <section class="billing-card">
@@ -42,15 +44,15 @@
                 <button id="newCustomerBtn" type="button" class="btn secondary full-width">+ Cliente nuevo</button>
             </section>
             <section class="billing-card" id="step2Card">
-                <h2><span class="step-badge">2</span>Agregar producto</h2>
+                <h2><span class="step-badge">2</span> Agregar producto</h2>
                 <select id="productSelect">
-                <option value="">-- Seleccionar producto --</option>
-            </select>
-            <div class="qty-row">
-                <input type="number" id="quantityInput" min="1" value="1">
-                <button id="addLineBtn" type="button" class="btn primary">Agregar</button>
-            </div>
-            <p class="stock-info" id="stockInfo"></p>
+                    <option value="">-- Seleccionar producto --</option>
+                </select>
+                <div class="qty-row">
+                    <input type="number" id="quantityInput" min="1" value="1">
+                    <button id="addLineBtn" type="button" class="btn primary">Agregar</button>
+                </div>
+                <p id="stockInfo" class="stock-info"></p>
             </section>
 
             <section class="billing-card" id="step3Card">
@@ -64,96 +66,184 @@
                     </div>
                     <div>
                         <label class="field-label">Impuestos (%)</label>
-                        <input type="number" step="0.01" id="taxRate
-                        
-                        
-                        " placeholder="0.00" value="0">
+                        <input type="number" step="0.01" id="taxRate" placeholder="0" value="0">
                     </div>
                 </div>
                 <p class="field-hint">El % de impuesto se aplica sobre el subtotal de toda la factura, no por producto individual.</p>
-                <select id="paymentType">
-                    <option value="Efectivo">Efectivo</option>
-                    <option value="Tarjeta">Tarjeta</option>
-                    <option value="Transferencia">Transferencia</option>
-                </select>
             </section>
         </div>
-
         <section class="billing-card detail-card">
             <h2>Detalle de la factura</h2>
+
             <table id="linesTable" class="po-lines-table">
-                    <thead>
-                        <tr>
-                            <th>Producto</th>
-                            <th>Cantidad</th>
-                            <th>Precio unit.</th>
-                            <th>Subtotal</th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody></tbody>
-                    <tfoot id="totals">
-                        <tr>
-                            <td colspan="3">Subtotal</td>
-                            <td id="subtotalCell">0.00</td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td colspan="3">Impuestos</td>
-                            <td id="taxesCell">0.00</td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td colspan="3">Envío</td>
-                            <td id="shippingCell">0.00</td>
-                            <td></td>
-                        </tr class="total-row">
-                        <tr><td colspan="3">TOTAL</td>
-                            <td id="totalCell">0.00</td>
-                            <td></td>
-                        </tr>
-                    </tfoot>
+                <thead>
+                    <tr>
+                        <th>Producto</th>
+                        <th>Cantidad</th>
+                        <th>Precio unit.</th>
+                        <th>Subtotal</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+                <tfoot id="totals">
+                    <tr>
+                        <td colspan="3">Subtotal</td>
+                        <td id="subtotalCell">0.00</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td colspan="3">Impuestos</td>
+                        <td id="taxesCell">0.00</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td colspan="3">Envío</td>
+                        <td id="shippingCell">0.00</td>
+                        <td></td>
+                    </tr>
+                    <tr class="total-row">
+                        <td colspan="3">TOTAL</td>
+                        <td id="totalCell">0.00</td>
+                        <td></td>
+                    </tr>
+                </tfoot>
             </table>
+        </section>
+
+        <section class="billing-card payment-card" id="step4Card">
+            <h2><span class="step-badge">4</span> Pago</h2>
+            <p class="field-hint">Podés pagar con una o varias formas de pago (por ejemplo, parte en efectivo y parte con tarjeta). Los pagos tienen que sumar el total de la factura.</p>
+
+            <div class="pay-summary">
+                <div><span class="field-label">Total a pagar</span><strong id="payTotalCell">$0.00</strong></div>
+                <div><span class="field-label">Pagado</span><strong id="paidTotalCell">$0.00</strong></div>
+                <div><span class="field-label">Falta</span><strong id="remainingCell">$0.00</strong></div>
+            </div>
+
+            <table id="paymentsTable" class="po-lines-table">
+                <thead>
+                    <tr>
+                        <th>Forma de pago</th>
+                        <th>Detalle</th>
+                        <th>Monto</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody id="paymentsBody"></tbody>
+            </table>
+
+            <h3 class="sub-title">Agregar un pago</h3>
+            <div class="two-col">
+                <div>
+                    <label class="field-label">Forma de pago</label>
+                    <select id="paymentType">
+                        <option value="Efectivo">Efectivo</option>
+                        <option value="Tarjeta">Tarjeta</option>
+                        <option value="Transferencia">Transferencia</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="field-label">Monto ($)</label>
+                    <input type="number" step="0.01" min="0.01" id="paymentAmount" placeholder="0.00">
+                </div>
+            </div>
+
+
+                <!-- Datos del pago con tarjeta (los completa el vendedor con el ticket del posnet) -->
+                <div id="cardFields" class="payment-extra" hidden>
+                    <label class="field-label">Tipo de tarjeta</label>
+                    <select id="cardType">
+                        <option value="">-- Seleccionar --</option>
+                        <option value="DEBIT">Débito</option>
+                        <option value="CREDIT">Crédito</option>
+                    </select>
+                    <label class="field-label">Marca</label>
+                    <input type="text" id="cardBrand" list="cardBrandList" placeholder="Visa, Mastercard..." maxlength="30">
+                    <datalist id="cardBrandList">
+                        <option value="Visa"></option>
+                        <option value="Mastercard"></option>
+                        <option value="American Express"></option>
+                        <option value="Maestro"></option>
+                        <option value="Cabal"></option>
+                        <option value="Naranja X"></option>
+                    </datalist>
+                    <div class="two-col">
+                        <div>
+                            <label class="field-label">Nº de cupón (posnet)</label>
+                            <input type="text" id="posVoucherNumber" maxlength="30">
+                        </div>
+                        <div>
+                            <label class="field-label">Cód. de autorización</label>
+                            <input type="text" id="authorizationCode" maxlength="20">
+                        </div>
+                    </div>
+                    <div class="two-col">
+                        <div>
+                            <label class="field-label">Últimos 4 dígitos (opcional)</label>
+                            <input type="text" id="cardLast4" maxlength="4" inputmode="numeric" placeholder="1234">
+                        </div>
+                        <div id="installmentsWrap" hidden>
+                            <label class="field-label">Cuotas</label>
+                            <input type="number" id="installments" min="1" max="24" value="1">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Datos del pago por transferencia -->
+                <div id="transferFields" class="payment-extra" hidden>
+                    <label class="field-label">Nº de operación / comprobante</label>
+                    <input type="text" id="transferReference" maxlength="50">
+                    <label class="field-label">Banco de origen (opcional)</label>
+                    <input type="text" id="transferBank" maxlength="50">
+                </div>
+
+            <button id="addPaymentBtn" type="button" class="btn secondary">+ Agregar pago</button>
+
+            <hr class="pay-divider">
             <button id="submitOrderBtn" type="button" class="btn primary submit-invoice-btn">Confirmar Factura</button>
             <p id="orderResult"></p>
         </section>
     </main>
-    
- 
-<!-- Modal de cliente nuevo: mismo componente que usa customer.html -->
-<div id="customerForm" class="modal">
-    <div class="modal-content">
-        <h3 id="formTitle">Nuevo Cliente</h3>
-        <form id="form">
-            <input type="hidden" id="id">
-            <input type="text" id="company" placeholder="Empresa" required><br>
-            <input type="text" id="lastName" placeholder="Apellido" required><br>
-            <input type="text" id="firstName" placeholder="Nombre" required><br>
-            <input type="email" id="email" placeholder="Email" required><br>
-            <input type="text" id="jobTitle" placeholder="Puesto"><br>
-            <input type="text" id="businessPhone" placeholder="Tel. Trabajo"><br>
-            <input type="text" id="homePhone" placeholder="Tel. Casa"><br>
-            <input type="text" id="mobilePhone" placeholder="Tel. Movil"><br>
-            <input type="text" id="faxNumber" placeholder="Fax"><br>
-            <input type="text" id="address" placeholder="Dirección"><br>
-            <input type="text" id="city" placeholder="Ciudad"><br>
-            <input type="text" id="stateProvince" placeholder="Provincia"><br>
-            <input type="text" id="postalCode" placeholder="Codigo Postal"><br>
-            <input type="text" id="countryRegion" placeholder="Pais"><br>
-            <input type="url" id="webPage" placeholder="web"><br>
-            <div class="modal-actions">
-                <button type="submit" class="btn primary">Guardar</button>
-                <button type="button" data-action="cancel" class="btn primary">Cancel</button>
-            </div>
+    <!-- Modal de cliente nuevo: mismo componente que usa customer.html -->
+    <div id="customerForm" class="modal">
+        <div class="modal-content">
+            <h3 id="formTitle">Nuevo Cliente</h3>
+            <form id="form">
+                <input type="hidden" id="id">
+                <input type="text" id="company" placeholder="Empresa" required><br>
+                <input type="text" id="lastName" placeholder="Apellido" required><br>
+                <input type="text" id="firstName" placeholder="Nombre" required><br>
+                <input type="email" id="email" placeholder="Email" required><br>
+                <input type="text" id="jobTitle" placeholder="Puesto"><br>
+                <input type="text" id="businessPhone" placeholder="Tel. Trabajo"><br>
+                <input type="text" id="homePhone" placeholder="Tel. Casa"><br>
+                <input type="text" id="mobilePhone" placeholder="Tel. Movil"><br>
+                <input type="text" id="faxNumber" placeholder="Fax"><br>
+                <input type="text" id="address" placeholder="Dirección"><br>
+                <input type="text" id="city" placeholder="Ciudad"><br>
+                <input type="text" id="stateProvince" placeholder="Provincia"><br>
+                <input type="text" id="postalCode" placeholder="Codigo Postal"><br>
+                <input type="text" id="countryRegion" placeholder="Pais"><br>
+                <input type="url" id="webPage" placeholder="web"><br>
+                <div class="modal-actions">
+                    <button type="submit" class="btn primary">Guardar</button>
+                    <button type="button" data-action="cancel" class="btn primary">Cancelar</button>
+                </div>
 
-        </form>
+            </form>
+        </div>
     </div>
-</div>
 
-<footer>
-    <div class="footer-bottom">© 2026 Northwind · Uso interno</div>
-</footer>
+    <footer>
+        <div class="footer-bottom">© 2026 Northwind · Uso interno</div>
+    </footer>
 
-<script type="module" src="../js/views/billing.js"></script>
+
+
+
+
+    <script type="module" src="../js/views/billing.js"></script>
 </body>
+
 </html>
