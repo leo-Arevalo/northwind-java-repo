@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Northwind | Ordenes de Compra</title>
+    <link rel="stylesheet" href="../css/suppliers.css">
+    <link rel="stylesheet" href="../css/dashboard.css">
+    <link rel="stylesheet" href="../css/purchase-orders.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <img src="../assets/logo-banner.svg" alt="Northwind Trading Co." class="logo-banner-small">
+        </div>
+    </header>
+    <nav class="navbar">
+        <ul class="menu">
+            <li><a href="../index.html">Inicio</a></li>
+            <li><a href="customers.html">Clientes</a></li>
+            <li><a href="products.html">Productos</a></li>
+            <li><a href="billing.html">Facturación</a></li>
+            <li><a href="suppliers.html">Proveedores</a></li>
+        </ul>
+        <div class="auth-buttons">
+            <button class="btn secondary" id="logoutBtn">Cerrar sesión</button>
+        </div>
+    </nav>
+    
+    <main class="po-page">
+        <h1>Órdenes de Compra</h1>
+        <p class="subtitle">Generá una orden nueva para reponer stock, o recibí una pendiente para que se acredite al inventario.</p>
+
+        <section class="po-card">
+            <h2>Nueva orden de compra</h2>
+            <div class="po-form-grid">
+                <div>
+                    <label>Proveedor</label>
+                    <select id="supplierSelect">
+                        <option value="">-- Seleccionar proveedor --</option>
+                    </select>
+                </div>
+                 <div>
+                    <label>Fecha esperada de entrega</label>
+                    <input type="date" id="expectedDate">
+                </div>
+            </div>
+
+            <div class="po-form-grid">
+                <div>
+                    <label>Producto</label>
+                    <select id="productSelect">
+                        <option value="">-- Seleccionar producto --</option>
+                    </select>
+                </div>
+                <div>
+                    <label >Cantidad</label>
+                    <input type="number" id="quantityInput" min="1" value="1">
+                </div>
+                <div>
+                    <label>Costo unitario</label>
+                    <input type="number" id="unitCostInput" min="0" step="0.01" placeholder="0.00">
+                </div>
+                <div class="po-add-btn-wrap">
+                    <button class="btn primary" id="addLineBtn" type="button">+ Agregar línea</button>
+                </div>
+            </div>
+            <table class="po-lines-table">
+                <thead>
+                    <tr><th>Producto</th><th>Cantidad</th><th>Cost unit.</th><th>Subtotal</th><th></th></tr>
+                </thead>
+                <tbody id="linesBody"></tbody>
+                <tfoot>
+                    <tr><td colspan="3">Total estimado</td><td id="totalCell">$0.00</td><td></td></tr>
+                </tfoot>
+            </table>
+            <button id="submitPOBtn" class="btn primary submit-po-btn" type="button">Crear orden de compra</button>
+            <p id="poResult"></p>
+        </section>
+
+        <section class="po-card">
+            <h2>Órdenes pendientes de recibir</h2>
+            <p class="subtitle">Al recibir una orden, se generan los movimientos de inventario y se repone el stock de cada producto.</p>
+            <table class="po-lines-table">
+                <thead>
+                    <tr><th>ID</th><th>Proveedor</th><th>Fecha</th><th>Estado</th><th></th></tr>
+                </thead>
+                <tbody id="pendingOrdersBody"></tbody>
+            </table>
+        </section>
+    </main>
+    <footer>
+        <div class="footer-bottom">© 2026 Northwind · Uso interno</div>
+    </footer>
+
+    <script type="module" src="../js/views/purchase-orders.js"></script>
+
+</body>
+</html>
