@@ -17,6 +17,7 @@ import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.Digits;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -32,6 +33,7 @@ import lombok.Setter;
 @Setter
 @Getter
 @Entity
+@Builder
 @Table(name = "purchase_order_details")
 public class PurchaseOrderDetail {
 

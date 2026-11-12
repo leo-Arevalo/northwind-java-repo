@@ -1,7 +1,8 @@
-.billing-page{
+
+.billing-page {
     max-width: 1100px;
     margin: 0 auto;
-    pading: 2rem;
+    padding: 2rem;
 }
 
 .billing-page h1 {
@@ -20,7 +21,6 @@
     gap: 1.25rem;
     margin-bottom: 1.5rem;
     align-items: start;
-
 }
 
 .billing-card {
@@ -37,7 +37,6 @@
     align-items: center;
     gap: 0.6rem;
 }
-
 .step-badge {
     background: #0066cc;
     color: white;
@@ -144,7 +143,46 @@
     margin-top: 0.5rem;
 }
 
+.modal-actions {
+    display: flex;
+    gap: 0.6rem;
+    margin-top: 0.5rem;
+}
 
+.field-label {
+    display: block;
+    font-size: 0.75rem;
+    color: #555;
+    font-weight: 600;
+    margin-bottom: 0.2rem;
+}
+.field-hint {
+    font-size: 0.8rem;
+    color: #888;
+    margin-top: -0.4rem;
+    margin-bottom: 0.75rem;
+}
+
+.step-disabled {
+    opacity: 0.45;
+    pointer-events: none;
+    position: relative;
+}
+.step-disabled::after {
+    content: "Completá el paso anterior primero";
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255,255,255,0.6);
+    color: #666;
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-align: center;
+    padding: 1rem;
+    border-radius: 12px;
+}
 
 
 

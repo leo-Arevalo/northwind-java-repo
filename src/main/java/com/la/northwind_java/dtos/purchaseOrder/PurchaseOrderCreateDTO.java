@@ -64,9 +64,16 @@ public class PurchaseOrderCreateDTO {
 	private Integer approvedBy;
 	
 	private LocalDate approvedDate;
+	
 	@Positive(message = "SubmittedBy must be a positive number.")
 	private Integer submittedBy;
 	
 	private List<PurchaseOrderLineDTO> orderDetails;
 	
 }
+
+
+
+
+
+

@@ -33,7 +33,6 @@ public class ProductServiceImpl implements ProductService {
 	private final ProductMapper productMapper;
 	private final InventoryTransactionRepository inventoryTransactionRepository;
 	
-	
 	/*
 	 * Creates a new product.
 	 */
@@ -103,29 +102,28 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	/*
-	 * Productos que un proveedor puede surtir. supplier_ids es texto
-	 * separado por coma en la base (no una tabla intermedia), asi que
-	 * se filtra en memoria en vez de armar uan query SQL.
+	 * Productos que un proveedor puede ofrecer. supplier_id es texto
+	 * separado por coma en la base de datos( no una tabla intermedia),
+	 * asi que se filtra en memoria en vez de armar un query SQL fragil con LIKE
+	 * (que confundiria proveedor 1 con 10, 11, etc.)
 	 */
 	@Override
 	public List<ProductDTO> getProductsBySupplier(Integer supplierId){
 		return productRepository.findAll().stream()
-				.filter(p ->p.getSupplierIdList().contains(supplierId))
-				.map(productMapper::toProductDTO)
-				.toList();
+				.filter(p -> p.getSupplierIdList().contains(supplierId))
+				.map(productMapper::toProductDTO).toList();
 	}
-	
 	@Override
 	public ProductStockDTO getAvailableStock(Integer productId) {
 		if(!productRepository.existsById(productId)) {
-			throw new ResourceNotFoundException("Producto no encontrado con id: "+productId);
+			throw new ResourceNotFoundException("Product not found with id: "+productId);
 		}
 		Long stock = inventoryTransactionRepository.getAvailableStock(productId);
 		return ProductStockDTO.builder()
 				.productoId(productId)
 				.availableStock(stock)
 				.build();
-		}
+	}
 	
 	
 	

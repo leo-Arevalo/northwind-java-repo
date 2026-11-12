@@ -23,11 +23,13 @@ import com.la.northwind_java.models.Product;
 import com.la.northwind_java.models.Employee;
 import com.la.northwind_java.models.InventoryTransaction;
 import com.la.northwind_java.models.InventoryTransactionType;
+import com.la.northwind_java.models.Product;
 import com.la.northwind_java.models.PurchaseOrder;
 import com.la.northwind_java.models.PurchaseOrderDetail;
 import com.la.northwind_java.models.PurchaseOrderStatus;
 import com.la.northwind_java.models.Supplier;
 import com.la.northwind_java.services.*;
+import com.la.northwind_java.models.Supplier;
 import com.la.northwind_java.specification.PurchaseOrderSpecification;
 
 import lombok.RequiredArgsConstructor;
@@ -148,8 +150,7 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
 							.build())
 					.toList());
 			return result;
-			
-	
+
 		}catch(DataAccessException e) {
 			throw new DatabaseException("Error creating purchase order.", e);
 		}

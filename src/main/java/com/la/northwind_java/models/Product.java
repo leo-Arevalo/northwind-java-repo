@@ -86,10 +86,10 @@ public class Product {
 	@OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<OrderDetails> orderDetails = new ArrayList<>();
 
-	/*
-	 * Parsea supplierIds ("4, 7, 12") a una lista de enteros. Devuelve
-	 * lista vacía si es null/blanco - nunca null, asi el que la usa
-	 * no tiene que null-chequear.
+	/**
+	 * Parsea supplierIds ("4,7,12") a una lista de enteros. Devuelve
+	 * lista vacia si es null/blanco - nunca null, asi el que la usa
+	 * no tiene que checkear que sea null
 	 */
 	
 	public List<Integer> getSupplierIdList() {
@@ -108,3 +108,8 @@ public class Product {
 	
 	
 }
+
+
+
+
+
