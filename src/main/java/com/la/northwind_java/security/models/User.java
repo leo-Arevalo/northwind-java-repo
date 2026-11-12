@@ -139,9 +139,15 @@ public class User implements UserDetails{
 	
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-		return roles.stream()
-				.map(role -> new SimpleGrantedAuthority("ROLE_" + role.getName()))
-				.collect(Collectors.toSet());
+		Set<GrantedAuthority> authorities = new HashSet<>();
+		roles.forEach(role -> authorities.add(new SimpleGrantedAuthority("ROLE_" + role.getName())));
+		// privilegios del Employee vinculado: "Purchase Approvals" -> PRIV_PURCHASE_APROVALS
+		
+		if(employee != null && employee.getPrivileges() != null) {
+			employee.getPrivileges().forEach(p -> authorities.add(new SimpleGrantedAuthority(
+					"PRIV_" + p.getPrivilegeName().toUpperCase().replace(" ", "_"))));
+		}
+		return authorities;
 	}
 
 	@Override
